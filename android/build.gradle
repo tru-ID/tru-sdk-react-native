@@ -29,7 +29,7 @@ android {
   compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
   buildToolsVersion getExtOrDefault('buildToolsVersion')
   defaultConfig {
-    minSdkVersion 16
+    minSdkVersion 21
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
@@ -54,6 +54,9 @@ repositories {
   mavenCentral()
   jcenter()
   google()
+  maven {
+    url "https://gitlab.com/api/v4/projects/22035475/packages/maven"
+  }
 
   def found = false
   def defaultDir = null
@@ -127,4 +130,5 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'id.tru.sdk:tru-sdk-android:0.0.2'
 }
