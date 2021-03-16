@@ -294,8 +294,10 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
+  - tru-sdk-ios (0.0.11)
   - tru-sdk-react-native (0.1.0):
     - React-Core
+    - tru-sdk-ios (~> 0.0.11)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -363,6 +365,7 @@ SPEC REPOS:
     - FlipperKit
     - libevent
     - OpenSSL-Universal
+    - tru-sdk-ios
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -458,10 +461,11 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  tru-sdk-react-native: e5d3faa8def1918d0eac74e431989a9acdf8ffcf
+  tru-sdk-ios: c56027197de24818379afc442c19b724c24e52aa
+  tru-sdk-react-native: 8b4f786be7180e2a128ae6e43e210d8dc2bc6ad4
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c368679550babf1dbd2ff7e12048fc9cade0ab47
+PODFILE CHECKSUM: ea33a6633868e39ad4fd0ba55c79f1d0219ee81b
 
 COCOAPODS: 1.10.1
