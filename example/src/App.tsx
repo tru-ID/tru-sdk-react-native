@@ -26,14 +26,18 @@ const client: AxiosInstance = axios.create({
   timeout: 30000,
 });
 
-// const getIp = async function () {
-//   try {
-//     const ipAddress = await TruSdkReactNative.getJsonPropertyValue(`${BASE_URL}/my-ip`, 'ip_address');
-//     console.log('ipAddress', ipAddress);
-//   } catch (ex) {
-//     console.error(ex);
-//   }
-// };
+const getIp = async function () {
+  try {
+    const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
+      `${BASE_URL}/my-ip`,
+      'ip_address'
+    );
+    return ipAddress;
+  } catch (ex) {
+    console.error(ex);
+    return 'Unknown';
+  }
+};
 
 const AppButton = ({
   onPress,
@@ -50,6 +54,7 @@ const AppButton = ({
 export default function App() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [phoneNumber, setPhoneNumber] = React.useState<string>('');
+  const [progress, setProgress] = React.useState<string>('');
 
   const showError = (error: string) =>
     Alert.alert('Something went wrong', `Error: ${error};`, [{ text: 'OK' }], {
@@ -86,39 +91,60 @@ export default function App() {
   };
 
   const triggerPhoneCheck = async () => {
-    // await getIp();
+    setProgress('Getting Device IP');
+    const ipAddress = await getIp();
+    setProgress(`Device IP: ${ipAddress}`);
 
     setIsLoading(true);
     Keyboard.dismiss();
 
     let postCheckNumberRes: AxiosResponse;
     try {
+      setProgress(`Creating PhoneCheck for ${phoneNumber}`);
       postCheckNumberRes = await client.post('/phone-check', {
         phone_number: phoneNumber,
       });
       console.log('[POST CHECK]:', postCheckNumberRes.data);
+      setProgress(`PhoneCheck created`);
     } catch (error) {
+      setProgress(`An error occured creating PhoneCheck`);
       setIsLoading(false);
       showRequestError('Error creating check resource', error);
       return;
     }
 
     try {
+      setProgress(`Retrieving PhoneCheck URL`);
       await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
+      setProgress(`Retrieved PhoneCheck URL`);
+    } catch (error) {
+      setProgress(`Error: ${error.message}`);
+      console.log(JSON.stringify(error, null, 2));
+      showRequestError('Error retrieving check URL', error.message);
+      return;
+    }
+
+    try {
+      setProgress(`Getting PhoneCheck result`);
       const checkStatusRes = await client({
         method: 'get',
         url: `/phone-check?check_id=${postCheckNumberRes.data.check_id}`,
       });
       console.log('[CHECK RESULT]:', checkStatusRes);
+      setProgress(`Got PhoneCheck result`);
 
       setIsLoading(false);
       if (checkStatusRes.data.match) {
+        setProgress(`✅ successful PhoneCheck match`);
         showMatchSuccess();
       } else {
+        setProgress(`❌ failed PhoneCheck match`);
         showMatchFailure();
       }
     } catch (error) {
-      showRequestError('Error retrieving check URL', error);
+      setProgress(`Error: ${error.message}`);
+      console.log(JSON.stringify(error, null, 2));
+      showRequestError('Error retrieving check result', error.message);
       return;
     }
   };
@@ -142,7 +168,11 @@ export default function App() {
         />
         {isLoading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" />
+            <ActivityIndicator
+              color={styles.loadingContainer.color}
+              size="large"
+            />
+            <Text>{progress}</Text>
           </View>
         ) : (
           <View>
