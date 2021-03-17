@@ -1,8 +1,8 @@
 import { NativeModules } from 'react-native';
 
 type TruSdkReactNativeType = {
-  multiply(a: number, b: number): Promise<number>;
-  openCheckUrl(url: string): void;
+  openCheckUrl(url: string): Promise<string | null>;
+  getJsonPropertyValue(url: string, key: string): Promise<string | null>;
 };
 
 const { TruSdkReactNative } = NativeModules;

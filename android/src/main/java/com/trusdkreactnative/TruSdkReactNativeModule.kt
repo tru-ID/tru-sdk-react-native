@@ -29,14 +29,28 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) : ReactCont
       }
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    fun multiply(a: Int, b: Int, promise: Promise) {
-    
-      promise.resolve(a * b)
-    
-    }
+    // @ReactMethod
+    // fun getJsonResponse(url: String, promise: Promise) {
+    //   try {
+    //     val truSdk = TruSDK.getInstance()
+    //     val json = truSdk.getJsonResponse(url)
+    //     promise.resolve(json)
+    //   }
+    //   catch(exception: Exception) {
+    //     promise.reject(exception)
+    //   }
+    // }
 
-    
+    @ReactMethod
+    fun getJsonPropertyValue(url: String, key: String, promise: Promise) {
+      try {
+        val truSdk = TruSDK.getInstance()
+        val value = truSdk.getJsonPropertyValue(url, key)
+        promise.resolve(value)
+      }
+      catch(exception: Error) {
+        promise.reject(exception)
+      }
+    }
+ 
 }
