@@ -11,6 +11,16 @@ React Native package for tru.ID
 npm install tru-sdk-react-native
 ```
 
+For Android, add the following to your application's `build.gradle`:
+
+```groovy
+maven {
+    url "https://gitlab.com/api/v4/projects/22035475/packages/maven"
+}
+```
+
+Note: we'll begin publishing our Android SDK to Maven central shortly.
+
 ## Usage
 
 ```js
