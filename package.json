@@ -1,6 +1,6 @@
 {
   "name": "tru-sdk-react-native",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Native SDK for tru.ID",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -31,7 +31,8 @@
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
     "changelog": "standard-version",
-    "publish:canary": "npm publish --tag canary --access public"
+    "publish:canary": "npm publish --tag canary --access public",
+    "publish:latest": "npm publish --access public"
   },
   "keywords": [
     "react-native",

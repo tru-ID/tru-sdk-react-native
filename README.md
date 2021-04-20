@@ -53,7 +53,7 @@ The SDK contains an embedded example to make building and testing the SDK bridge
 - For metro bundler, require node version > 10
 - `yarn bootstrap && cd examples`
     - Run Android: `yarn android`
-    - Run iOS:
+    - Run iOS: `yarn ios`
 
 ## Contributing
 
@@ -69,10 +69,28 @@ Update `CHANGELOG.md` and finesse.
 $ yarn run changelog
 ```
 
+Commit the changes:
+
+```
+$ git commit -m 'chore(release): v{version}'
+```
+
+Tag:
+
+```
+$ git tag v{version}
+```
+
 Publish a new canary build to test.
 
 ```
-yarn run publish:canary
+$ yarn run publish:canary
+```
+
+Publish a full version:
+
+```
+$ yarn run publish:latest
 ```
 
 ## Meta
