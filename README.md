@@ -53,7 +53,7 @@ The SDK contains an embedded example to make building and testing the SDK bridge
 - For metro bundler, require node version > 10
 - `yarn bootstrap && cd examples`
     - Run Android: `yarn android`
-    - Run iOS:
+    - Run iOS: `yarn ios`
 
 ## Contributing
 
