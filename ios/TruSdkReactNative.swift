@@ -7,10 +7,15 @@ class TruSdkReactNative: NSObject {
 
     @objc(openCheckUrl:withResolver:withRejecter:)
     public func openCheckUrl(url: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+
         let truSdk: TruSDK = TruSDK()
-        
-        truSdk.openCheckUrl(url: url) { (_) in
-            resolve(url)
+
+        truSdk.check(url: url) { error in
+            if let error = error as NSError {
+                reject("Error", error.localizedDescription, error)
+            } else {
+                resolve(url)
+            }
         }
     }
 
@@ -24,8 +29,10 @@ class TruSdkReactNative: NSObject {
 
     @objc(getJsonPropertyValue:key:withResolver:withRejecter:)
     public func getJsonPropertyValue(url: String, key: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+
         let truSdk: TruSDK = TruSDK()
-        truSdk.getJsonPropertyValue(url: url, key: key) { (value) in
+
+        truSdk.jsonPropertyValue(for: key, from: url) { value in
             resolve(value)
         }
     }
