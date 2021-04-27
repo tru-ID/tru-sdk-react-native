@@ -10,8 +10,13 @@ class TruSdkReactNative: NSObject {
 
         let truSdk: TruSDK = TruSDK()
 
-        truSdk.check(url: url) { error in
-            if let error = error as NSError {
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        truSdk.check(url: nurl) { error in
+            if let error = error as NSError? {
                 reject("Error", error.localizedDescription, error)
             } else {
                 resolve(url)
@@ -32,7 +37,12 @@ class TruSdkReactNative: NSObject {
 
         let truSdk: TruSDK = TruSDK()
 
-        truSdk.jsonPropertyValue(for: key, from: url) { value in
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        truSdk.jsonPropertyValue(for: key, from: nurl) { value in
             resolve(value)
         }
     }

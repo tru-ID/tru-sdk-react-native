@@ -44,7 +44,7 @@ const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
 
 The SDK contains an embedded example to make building and testing the SDK bridge easier.
 
-- For iOS: Require XCode >12
+- For iOS: Require Xcode 12+
 - For Android:
     - Require JDK 14 (Java version 14.02 / Gradle v6.3).
     - Android Studio or Android SDK manager via [Android developer downloads](https://developer.android.com/studio).
