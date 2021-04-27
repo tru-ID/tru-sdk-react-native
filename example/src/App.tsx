@@ -27,6 +27,7 @@ const client: AxiosInstance = axios.create({
 });
 
 const getIp = async function () {
+  console.log('[getIp]');
   try {
     const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
       `${BASE_URL}/my-ip`,
@@ -55,6 +56,7 @@ export default function App() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [phoneNumber, setPhoneNumber] = React.useState<string>('');
   const [progress, setProgress] = React.useState<string>('');
+  const [ipAddress, setIpAddress] = React.useState<string>('');
 
   const showError = (error: string) =>
     Alert.alert('Something went wrong', `Error: ${error};`, [{ text: 'OK' }], {
@@ -91,12 +93,12 @@ export default function App() {
   };
 
   const triggerPhoneCheck = async () => {
-    setProgress('Getting Device IP');
-    const ipAddress = await getIp();
-    setProgress(`Device IP: ${ipAddress}`);
-
     setIsLoading(true);
     Keyboard.dismiss();
+
+    setProgress('Getting Device IP');
+    setIpAddress((await getIp()) as string);
+    setProgress(`Device IP: ${ipAddress}`);
 
     let postCheckNumberRes: AxiosResponse;
     try {
@@ -166,6 +168,7 @@ export default function App() {
           onChangeText={(phone) => setPhoneNumber(phone.replace(/\s+/g, ''))}
           focusable={!isLoading}
         />
+        {ipAddress && <Text>Device IP: {ipAddress}</Text>}
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator

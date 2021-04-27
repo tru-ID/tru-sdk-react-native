@@ -48,7 +48,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) : ReactCont
         val value = truSdk.getJsonPropertyValue(url, key)
         promise.resolve(value)
       }
-      catch(exception: Error) {
+      catch(exception: Exception) {
         promise.reject(exception)
       }
     }
