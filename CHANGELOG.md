@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 * Bump tru-ios-sdk dependency to v0.1.1
 * Replace tru-ios-sdk deprecated method calls with the new methods
+* Update changelog
+* Update Pod versions and Podspec
+* Update package version to 0.2.2
+* Fix an issue where IP number may not be available
+* Disable Flipper-Folly for Xcode 12.5 as it doesn't compile
+* Update project min target
 
 ### [0.2.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.2.0...v0.2.1) (2021-04-20)
 
