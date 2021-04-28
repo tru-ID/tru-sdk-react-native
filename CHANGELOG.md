@@ -2,16 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.2.2](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.2.1...v0.2.2) (2021-04-27)
+### [0.3.0](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.2.1...v0.3.0) (2021-04-27)
 
-* Bump tru-ios-sdk dependency to v0.1.1
-* Replace tru-ios-sdk deprecated method calls with the new methods
-* Update changelog
+* Bump tru-ios-sdk dependency to v0.1.1. Now React Native SDK is using an improved version of the iOS SDK, which is more resilient to changing network conditions and provides better error handling.
+* Due to the tru-ios-sdk dependency changes upgrading min iOS target to iOS 13.0 as well. 
 * Update Pod versions and Podspec
-* Update package version to 0.2.2
-* Fix an issue where IP number may not be available
-* Disable Flipper-Folly for Xcode 12.5 as it doesn't compile
-* Update project min target
+* Example iOS Project disabled Flipper-Folly pod for Xcode 12.5 as it doesn't compile
+* Example iOS project min target is updated
+* Example React Native code fix for an issue where IP number may not be available
 
 ### [0.2.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.2.0...v0.2.1) (2021-04-20)
 
