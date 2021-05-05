@@ -1,5 +1,5 @@
 {
-  "name": "tru-sdk-react-native",
+  "name": "@tru_id/tru-sdk-react-native",
   "version": "0.3.0",
   "description": "React Native SDK for tru.ID",
   "main": "lib/commonjs/index",
