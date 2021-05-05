@@ -7,10 +7,20 @@ class TruSdkReactNative: NSObject {
 
     @objc(openCheckUrl:withResolver:withRejecter:)
     public func openCheckUrl(url: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+
         let truSdk: TruSDK = TruSDK()
-        
-        truSdk.openCheckUrl(url: url) { (_) in
-            resolve(url)
+
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        truSdk.check(url: nurl) { error in
+            if let error = error as NSError? {
+                reject("Error", error.localizedDescription, error)
+            } else {
+                resolve(url)
+            }
         }
     }
 
@@ -24,8 +34,15 @@ class TruSdkReactNative: NSObject {
 
     @objc(getJsonPropertyValue:key:withResolver:withRejecter:)
     public func getJsonPropertyValue(url: String, key: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+
         let truSdk: TruSDK = TruSDK()
-        truSdk.getJsonPropertyValue(url: url, key: key) { (value) in
+
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        truSdk.jsonPropertyValue(for: key, from: nurl) { value in
             resolve(value)
         }
     }

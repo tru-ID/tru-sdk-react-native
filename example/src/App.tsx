@@ -168,7 +168,7 @@ export default function App() {
           onChangeText={(phone) => setPhoneNumber(phone.replace(/\s+/g, ''))}
           focusable={!isLoading}
         />
-        {ipAddress && <Text>Device IP: {ipAddress}</Text>}
+        {ipAddress ? <Text>Device IP: {ipAddress}</Text> : null}
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator
