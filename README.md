@@ -1,14 +1,12 @@
-# tru-sdk-react-native
+# tru.ID SDK for React Native
 
 [![License][license-image]][license-url]
-
-React Native package for tru.ID
 
 
 ## Installation
 
 ```sh
-npm install tru-sdk-react-native
+npm install @tru_id/tru-sdk-react-native
 ```
 
 For Android, add the following to your application's `build.gradle`:
@@ -24,7 +22,7 @@ Note: we'll begin publishing our Android SDK to Maven central shortly.
 ## Usage
 
 ```js
-import TruSdkReactNative from "tru-sdk-react-native";
+import TruSdkReactNative from "@tru_id/tru-sdk-react-native";
 
 // ...
 
