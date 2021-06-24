@@ -4,11 +4,11 @@ buildscript {
 
   repositories {
     google()
-    jcenter()
+    mavenCentral()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.1'
+    classpath 'com.android.tools.build:gradle:4.0.2'
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -52,8 +52,8 @@ android {
 
 repositories {
   mavenCentral()
-  jcenter()
   google()
+  jcenter()
   maven {
     url "https://gitlab.com/api/v4/projects/22035475/packages/maven"
   }
@@ -130,5 +130,6 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'id.tru.sdk:tru-sdk-android:0.0.3'
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+  implementation 'id.tru.sdk:tru-sdk-android:0.2.3'
 }

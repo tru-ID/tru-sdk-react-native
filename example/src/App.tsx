@@ -18,7 +18,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import TruSdkReactNative from 'tru-sdk-react-native';
+import TruSdkReactNative from '@tru_id/tru-sdk-react-native';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const client: AxiosInstance = axios.create({
@@ -28,6 +28,7 @@ const client: AxiosInstance = axios.create({
 
 const getIp = async function () {
   console.log('[getIp]');
+  console.log('[getIp] -> ' + `${BASE_URL}/my-ip` )
   try {
     const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
       `${BASE_URL}/my-ip`,
@@ -35,6 +36,19 @@ const getIp = async function () {
     );
     return ipAddress;
   } catch (ex) {
+    console.error(ex);
+    return 'Unknown';
+  }
+};
+
+const isReachable = async function () {
+  console.log('[isReachable called]');
+  try {
+    const details = await TruSdkReactNative.isReachable();
+    console.log('[isReachable complete]');
+    return details;
+  } catch (ex) {
+    console.log('[isReachable error]');
     console.error(ex);
     return 'Unknown';
   }
@@ -99,7 +113,10 @@ export default function App() {
     setProgress('Getting Device IP');
     setIpAddress((await getIp()) as string);
     setProgress(`Device IP: ${ipAddress}`);
+    //let details = await isReachable(); //success as json object, or error as string
 
+    
+    console.log("Moving on with Creating PhoneCheck...")
     let postCheckNumberRes: AxiosResponse;
     try {
       setProgress(`Creating PhoneCheck for ${phoneNumber}`);
@@ -117,7 +134,10 @@ export default function App() {
 
     try {
       setProgress(`Retrieving PhoneCheck URL`);
-      await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
+      // await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
+      console.log("Trace checkWithTrace [Start] ->")
+      let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
+      console.log("[Done] Trace Info available ->")
       setProgress(`Retrieved PhoneCheck URL`);
     } catch (error) {
       setProgress(`Error: ${error.message}`);
