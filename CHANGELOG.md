@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.3.0...v0.3.1) (2021-06-22)
+* Bump tru-ios-sdk dependency to v0.2.4.
+* Bump tru-android-sdk dependency to v0.2.4.
+### Features
+Two new method are introduced '`isReachable()` and `checkWithTrace(url: string)`.
+
 ### [0.3.0](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.2.1...v0.3.0) (2021-04-27)
 
 * Bump tru-ios-sdk dependency to v0.1.1. Now React Native SDK is using an improved version of the iOS SDK, which is more resilient to changing network conditions and provides better error handling.

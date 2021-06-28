@@ -18,7 +18,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import TruSdkReactNative from 'tru-sdk-react-native';
+import TruSdkReactNative from '@tru_id/tru-sdk-react-native';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const client: AxiosInstance = axios.create({
@@ -28,6 +28,7 @@ const client: AxiosInstance = axios.create({
 
 const getIp = async function () {
   console.log('[getIp]');
+  console.log('[getIp] -> ' + `${BASE_URL}/my-ip` )
   try {
     const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
       `${BASE_URL}/my-ip`,
@@ -35,6 +36,19 @@ const getIp = async function () {
     );
     return ipAddress;
   } catch (ex) {
+    console.error(ex);
+    return 'Unknown';
+  }
+};
+
+const isReachable = async function () {
+  console.log('[isReachable called]');
+  try {
+    const details = await TruSdkReactNative.isReachable();
+    console.log('[isReachable complete]');
+    return details;
+  } catch (ex) {
+    console.log('[isReachable error]');
     console.error(ex);
     return 'Unknown';
   }
@@ -96,10 +110,12 @@ export default function App() {
     setIsLoading(true);
     Keyboard.dismiss();
 
-    setProgress('Getting Device IP');
-    setIpAddress((await getIp()) as string);
-    setProgress(`Device IP: ${ipAddress}`);
-
+    setProgress('Checking if on a Mobile IP');
+    let details = await isReachable();
+    console.log('Is Reachable result =>' + details)
+    setProgress(`Is Reachable: ${details}`);
+    
+    console.log("Moving on with Creating PhoneCheck...")
     let postCheckNumberRes: AxiosResponse;
     try {
       setProgress(`Creating PhoneCheck for ${phoneNumber}`);
@@ -116,12 +132,19 @@ export default function App() {
     }
 
     try {
-      setProgress(`Retrieving PhoneCheck URL`);
+      setProgress(`Requesting PhoneCheck URL`);
+  
+      console.log("PhoneCheck [Start] ->")
       await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
-      setProgress(`Retrieved PhoneCheck URL`);
+      console.log("PhoneCheck [Done] ->")
+      // Alternatively check with trace
+      //console.log("Trace checkWithTrace [Start] ->")
+      // let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
+      // console.log("Trace checkWithTrace [Done] ->" + trace)
+      setProgress(`Requesting PhoneCheck URL`);
     } catch (error) {
       setProgress(`Error: ${error.message}`);
-      console.log(JSON.stringify(error, null, 2));
+      console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
       showRequestError('Error retrieving check URL', error.message);
       return;
     }
