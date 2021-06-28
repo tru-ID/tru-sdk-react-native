@@ -110,11 +110,10 @@ export default function App() {
     setIsLoading(true);
     Keyboard.dismiss();
 
-    setProgress('Getting Device IP');
-    setIpAddress((await getIp()) as string);
-    setProgress(`Device IP: ${ipAddress}`);
-    //let details = await isReachable(); //success as json object, or error as string
-
+    setProgress('Checking if on a Mobile IP');
+    let details = await isReachable();
+    console.log('Is Reachable result =>' + details)
+    setProgress(`Is Reachable: ${details}`);
     
     console.log("Moving on with Creating PhoneCheck...")
     let postCheckNumberRes: AxiosResponse;
@@ -133,12 +132,16 @@ export default function App() {
     }
 
     try {
-      setProgress(`Retrieving PhoneCheck URL`);
-      // await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
-      console.log("Trace checkWithTrace [Start] ->")
-      let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
-      console.log("[Done] Trace Info available ->")
-      setProgress(`Retrieved PhoneCheck URL`);
+      setProgress(`Requesting PhoneCheck URL`);
+  
+      console.log("PhoneCheck [Start] ->")
+      await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
+      console.log("PhoneCheck [Done] ->")
+      // Alternatively check with trace
+      //console.log("Trace checkWithTrace [Start] ->")
+      // let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
+      // console.log("Trace checkWithTrace [Done] ->" + trace)
+      setProgress(`Requesting PhoneCheck URL`);
     } catch (error) {
       setProgress(`Error: ${error.message}`);
       console.log(JSON.stringify(error, null, 2));

@@ -44,6 +44,7 @@ class TruSdkReactNative: NSObject {
                 reject("Error", "There is not error received, however TraceInfo is not available", nil)
                 return
             }
+
             resolve(trace.trace)
         }
     }

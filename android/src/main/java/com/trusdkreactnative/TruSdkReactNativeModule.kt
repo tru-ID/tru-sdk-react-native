@@ -31,7 +31,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
       try {
         val truSdk = TruSDK.getInstance()
         val isOnCellular = truSdk.openCheckUrl(url)
-        promise.resolve(isOnCellular)
+        promise.resolve(url) //for interface consistency
       } catch (exception: Exception) {
         promise.reject(exception)
       }

@@ -245,10 +245,10 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - tru-sdk-ios (0.2.3)
+  - tru-sdk-ios (0.2.4)
   - tru-sdk-react-native (0.3.1):
     - React-Core
-    - tru-sdk-ios (~> 0.2.3)
+    - tru-sdk-ios (~> 0.2.4)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -370,8 +370,8 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  tru-sdk-ios: ac88ea96e170b7f961d757aeb8145430854740a3
-  tru-sdk-react-native: 0e769df0d43b6237739edf901fccf09c025da7f2
+  tru-sdk-ios: e6ed377ab975e707548219bfd96439b09cbc9708
+  tru-sdk-react-native: 1591e5248009cc037dd23b136263cd9fb1a21874
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
 PODFILE CHECKSUM: c869bc85e2e3309f92e5597a688db2b343c4cbdb
