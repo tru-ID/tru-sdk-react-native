@@ -144,7 +144,7 @@ export default function App() {
       setProgress(`Requesting PhoneCheck URL`);
     } catch (error) {
       setProgress(`Error: ${error.message}`);
-      console.log(JSON.stringify(error, null, 2));
+      console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
       showRequestError('Error retrieving check URL', error.message);
       return;
     }
