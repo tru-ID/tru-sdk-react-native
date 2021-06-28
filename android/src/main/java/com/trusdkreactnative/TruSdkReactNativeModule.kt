@@ -31,7 +31,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
       try {
         val truSdk = TruSDK.getInstance()
         val isOnCellular = truSdk.openCheckUrl(url)
-        promise.resolve(url)
+        promise.resolve(isOnCellular)
       } catch (exception: Exception) {
         promise.reject(exception)
       }
@@ -42,23 +42,23 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
   fun checkWithTrace(url: String, promise: Promise) {
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
-        Log.d("Bridge","checkWithTrace is called")
+        Log.d(TAG,"checkWithTrace is called")
         val truSdk = TruSDK.getInstance()
         val traceInfo = truSdk.checkWithTrace(URL(url))
         promise.resolve(traceInfo.trace)
         Log.d("Bridge","checkWithTrace Promise resolved")
       } catch (exception: java.lang.Exception) {
-        Log.d("Bridge","checkWithTrace Promise rejection")
+        Log.d(TAG,"checkWithTrace Promise rejection")
         promise.reject(exception)
       }
     }
-    Log.d("Bridge","checkWithTrace method exit")
+    Log.d(TAG,"checkWithTrace method exit")
   }
 
   @ReactMethod
   fun isReachable(promise: Promise) {
     try {
-      Log.d("Bridge","isReachable is called")
+      Log.d(TAG,"isReachable is called")
       val truSdk = TruSDK.getInstance()
       val reachabilityInfo: ReachabilityDetails? = truSdk.isReachable()
       val payload = serialiseReachability(reachabilityInfo)
@@ -115,4 +115,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     return "\"${key}\" : ${value}"
   }
 
+  companion object {
+    private const val TAG = "tru.ID RN Bridge"
+  }
 }

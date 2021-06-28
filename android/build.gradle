@@ -131,5 +131,5 @@ dependencies {
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-  implementation 'id.tru.sdk:tru-sdk-android:0.2.3'
+  implementation 'id.tru.sdk:tru-sdk-android:0.2.4'
 }
