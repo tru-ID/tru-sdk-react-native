@@ -26,16 +26,15 @@ import TruSdkReactNative from "@tru_id/tru-sdk-react-native";
 
 // ...
 
+// Test if the device mobile network is currently supported 
+const details = await TruSdkReactNative.isReachable();
+
+// ...
+
+
 // Make a GET request using the cellular connection to the check URL
 await TruSdkReactNative.openCheckUrl(checkUrl);
 
-// Make a GET request using the cellular connection supplied URL
-// Expects a JSON response and the value for the key identified by the second parameter
-// will be returned. e.g. "ip_address" in the example below.
-const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
-    `https://${BASE_URL}/my-ip`,
-    'ip_address'
-  );
 ```
 
 ## Run example
