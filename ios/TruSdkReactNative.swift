@@ -24,7 +24,7 @@ class TruSdkReactNative: NSObject {
         }
     }
 
-    @objc(openCheckUrl:withResolver:withRejecter:)
+    @objc(check:withResolver:withRejecter:)
     public func check(url: String,
                              resolve: @escaping RCTPromiseResolveBlock,
                              reject: @escaping RCTPromiseRejectBlock) -> Void {
