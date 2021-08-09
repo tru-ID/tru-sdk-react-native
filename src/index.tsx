@@ -1,10 +1,17 @@
 import { NativeModules } from 'react-native';
 
 type TruSdkReactNativeType = {
-  openCheckUrl(url: string): Promise<string | null>; // will be deprecated in next revision
+
+  /**
+   * @deprecated since version 0.3.3
+   */
+   openCheckUrl(url: string): Promise<string | null>
   check(url: string): Promise<string | null>;
   checkWithTrace(url: string): Promise<string | null>;
   isReachable(): Promise<string | null>;
+  /**
+   * @deprecated since version 0.3.3
+   */
   getJsonPropertyValue(url: string, key: string): Promise<string | null>;
 };
 
