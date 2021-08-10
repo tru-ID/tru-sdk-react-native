@@ -74,7 +74,8 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
       Log.d(TAG,"isReachable is called")
       val truSdk = TruSDK.getInstance()
       val reachabilityInfo: ReachabilityDetails? = truSdk.isReachable()
-      val payload = serialiseReachability(reachabilityInfo)
+      val payload = reachabilityInfo?.toJsonString()
+      //val payload = serialiseReachability(reachabilityInfo)
       promise.resolve(payload)
     }catch (exception: java.lang.Exception) {
       promise.reject(exception)
@@ -92,33 +93,35 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     }
   }
 
-  private fun serialiseReachability(reachabilityDetails: ReachabilityDetails?): String {
-    var buffer = StringBuffer()
-    buffer.append("{")
 
-    reachabilityDetails?.let {
-      val countryCode = it.countryCode ?: ""
-      val link = it.link ?: ""
-      val networkId = it.networkId ?: ""
-      val networkName = it.networkName ?: ""
-      val errorDetail = it.error?.detail ?: ""
-      val errorTitle = it.error?.title ?: ""
-      val errorType = it.error?.type ?: ""
-      val errorStatus = it.error?.status ?: 0
-
-      buffer.append(quote("countryCode", countryCode))
-      buffer.append(quote("link", link))
-      buffer.append(quote("networkId", networkId))
-      buffer.append(quote("networkName", networkName))
-      buffer.append(quote("errorDetail", errorDetail))
-      buffer.append(quote("errorTitle", errorTitle))
-      buffer.append(quote("errorType", errorType))
-      buffer.append(quote("errorStatus", errorStatus))
-    }
-
-    buffer.append("}")
-    return buffer.toString()
-  }
+//
+//  private fun serialiseReachability(reachabilityDetails: ReachabilityDetails?): String {
+//    var buffer = StringBuffer()
+//    buffer.append("{")
+//
+//    reachabilityDetails?.let {
+//      val countryCode = it.countryCode ?: ""
+//      val link = it.link ?: ""
+//      val networkId = it.networkId ?: ""
+//      val networkName = it.networkName ?: ""
+//      val errorDetail = it.error?.detail ?: ""
+//      val errorTitle = it.error?.title ?: ""
+//      val errorType = it.error?.type ?: ""
+//      val errorStatus = it.error?.status ?: 0
+//
+//      buffer.append(quote("countryCode", countryCode))
+//      buffer.append(quote("link", link))
+//      buffer.append(quote("networkId", networkId))
+//      buffer.append(quote("networkName", networkName))
+//      buffer.append(quote("errorDetail", errorDetail))
+//      buffer.append(quote("errorTitle", errorTitle))
+//      buffer.append(quote("errorType", errorType))
+//      buffer.append(quote("errorStatus", errorStatus))
+//    }
+//
+//    buffer.append("}")
+//    return buffer.toString()
+//  }
 
   private fun quote(key: String, value: String, comma: String = ","): String {
     return "\"${key}\" : \"${value}\"${comma}"

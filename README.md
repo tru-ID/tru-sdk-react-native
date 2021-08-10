@@ -33,7 +33,7 @@ const details = await TruSdkReactNative.isReachable();
 
 
 // Make a GET request using the cellular connection to the check URL
-await TruSdkReactNative.openCheckUrl(checkUrl);
+await TruSdkReactNative.check(url);
 
 ```
 
