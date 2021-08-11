@@ -25,7 +25,7 @@ Note: we'll begin publishing our Android SDK to Maven central shortly.
 
 - Compile Android SDK: TruSDK requires you to compile against API 30  (Android 11) or later.
 
-- Minimum deployment traget for iOS is iOS 12
+- Minimum deployment target for iOS is iOS 12
 
 ## Usage
 
