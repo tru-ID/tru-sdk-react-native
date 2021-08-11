@@ -94,13 +94,13 @@ export default function App() {
     setIsLoading(true);
     Keyboard.dismiss();
 
-//As simulators do not have a mobile connection, it is best to use isReachable on a physical device.
+    //As simulators do not have a mobile connection, it is best to use isReachable on a physical device
 
-    // setProgress('Checking if on a Mobile IP');
-    // let details = await isReachable();
-    // console.log('Is Reachable result =>' + details);
-    // setProgress(`Is Reachable: ${details}`);
-    // console.log(`Moving on with Creating PhoneCheck...`);
+    setProgress('Checking if on a Mobile IP');
+    let details = await isReachable();
+    console.log('Is Reachable result =>' + details);
+    setProgress(`Is Reachable: ${details}`);
+    console.log(`Moving on with Creating PhoneCheck...`);
     let postCheckNumberRes: AxiosResponse;
     try {
       setProgress(`Creating PhoneCheck for ${phoneNumber}`);
