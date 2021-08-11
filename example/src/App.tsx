@@ -26,21 +26,6 @@ const client: AxiosInstance = axios.create({
   timeout: 30000,
 });
 
-const getIp = async function () {
-  console.log('[getIp]');
-  console.log('[getIp] -> ' + `${BASE_URL}/my-ip` )
-  try {
-    const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
-      `${BASE_URL}/my-ip`,
-      'ip_address'
-    );
-    return ipAddress;
-  } catch (ex) {
-    console.error(ex);
-    return 'Unknown';
-  }
-};
-
 const isReachable = async function () {
   console.log('[isReachable called]');
   try {
@@ -70,7 +55,6 @@ export default function App() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [phoneNumber, setPhoneNumber] = React.useState<string>('');
   const [progress, setProgress] = React.useState<string>('');
-  const [ipAddress, setIpAddress] = React.useState<string>('');
 
   const showError = (error: string) =>
     Alert.alert('Something went wrong', `Error: ${error};`, [{ text: 'OK' }], {
@@ -110,12 +94,13 @@ export default function App() {
     setIsLoading(true);
     Keyboard.dismiss();
 
+    //As simulators do not have a mobile connection, it is best to use isReachable on a physical device
+
     setProgress('Checking if on a Mobile IP');
     let details = await isReachable();
-    console.log('Is Reachable result =>' + details)
+    console.log('Is Reachable result =>' + details);
     setProgress(`Is Reachable: ${details}`);
-    
-    console.log("Moving on with Creating PhoneCheck...")
+    console.log(`Moving on with Creating PhoneCheck...`);
     let postCheckNumberRes: AxiosResponse;
     try {
       setProgress(`Creating PhoneCheck for ${phoneNumber}`);
@@ -133,10 +118,9 @@ export default function App() {
 
     try {
       setProgress(`Requesting PhoneCheck URL`);
-  
-      console.log("PhoneCheck [Start] ->")
-      await TruSdkReactNative.openCheckUrl(postCheckNumberRes.data.check_url);
-      console.log("PhoneCheck [Done] ->")
+      console.log(`PhoneCheck [Start] ->`);
+      await TruSdkReactNative.check(postCheckNumberRes.data.check_url);
+      console.log(`PhoneCheck [Done] ->`);
       // Alternatively check with trace
       //console.log("Trace checkWithTrace [Start] ->")
       // let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
@@ -191,7 +175,6 @@ export default function App() {
           onChangeText={(phone) => setPhoneNumber(phone.replace(/\s+/g, ''))}
           focusable={!isLoading}
         />
-        {ipAddress ? <Text>Device IP: {ipAddress}</Text> : null}
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator

@@ -52,6 +52,12 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+android/.classpath
+android/.project
+example/android/app/.classpath
+example/android/app/.project
+example/android/app/.settings
+example/android/.project
 
 # Expo
 .expo/*

@@ -19,6 +19,14 @@ maven {
 
 Note: we'll begin publishing our Android SDK to Maven central shortly.
 
+## Compatibility
+
+- Minimum Android SDK: TruSDK requires a minimum API level of 21 (Android 5)
+
+- Compile Android SDK: TruSDK requires you to compile against API 30  (Android 11) or later.
+
+- Minimum deployment target for iOS is iOS 12
+
 ## Usage
 
 ```js
@@ -26,16 +34,15 @@ import TruSdkReactNative from "@tru_id/tru-sdk-react-native";
 
 // ...
 
-// Make a GET request using the cellular connection to the check URL
-await TruSdkReactNative.openCheckUrl(checkUrl);
+// Test if the device mobile network is currently supported 
+const details = await TruSdkReactNative.isReachable();
 
-// Make a GET request using the cellular connection supplied URL
-// Expects a JSON response and the value for the key identified by the second parameter
-// will be returned. e.g. "ip_address" in the example below.
-const ipAddress = await TruSdkReactNative.getJsonPropertyValue(
-    `https://${BASE_URL}/my-ip`,
-    'ip_address'
-  );
+// ...
+
+
+// Make a GET request using the cellular connection to the check URL
+await TruSdkReactNative.check(url);
+
 ```
 
 ## Run example
@@ -49,7 +56,7 @@ The SDK contains an embedded example to make building and testing the SDK bridge
     - Set `ANDROID_HOME` environment variable (ie `export ANDROID_HOME=~/Library/Android/sdk`). Although `$ANDROID_HOME` is apparently deprecated it is still required.
     - Accepted the SDK licenses `$ANDROID_HOME/tools/bin/sdkmanager --licenses` or `$ANDROID_SDK_ROOT/tools/bin/sdkmanager --licenses`
 - For metro bundler, require node version > 10
-- `yarn bootstrap && cd examples`
+- `yarn bootstrap && cd example`
     - Run Android: `yarn android`
     - Run iOS: `yarn ios`
 

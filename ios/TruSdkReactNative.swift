@@ -3,8 +3,29 @@ import tru_sdk_ios
 @objc(TruSdkReactNative)
 class TruSdkReactNative: NSObject {
 
+    // will be deprecated at the next release
     @objc(openCheckUrl:withResolver:withRejecter:)
     public func openCheckUrl(url: String,
+                             resolve: @escaping RCTPromiseResolveBlock,
+                             reject: @escaping RCTPromiseRejectBlock) -> Void {
+
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        let truSdk: TruSDK = TruSDK()
+        truSdk.check(url: nurl) { error in
+            if let error = error as NSError? {
+                reject("Error", error.localizedDescription, error)
+            } else {
+                resolve(url)
+            }
+        }
+    }
+
+    @objc(check:withResolver:withRejecter:)
+    public func check(url: String,
                              resolve: @escaping RCTPromiseResolveBlock,
                              reject: @escaping RCTPromiseRejectBlock) -> Void {
 
