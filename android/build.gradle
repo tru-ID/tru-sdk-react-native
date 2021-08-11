@@ -11,7 +11,6 @@ buildscript {
     classpath 'com.android.tools.build:gradle:4.0.2'
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
   }
 }
 
@@ -34,6 +33,7 @@ android {
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
+
   }
 
   buildTypes {
@@ -128,9 +128,9 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 
 dependencies {
   // noinspection GradleDynamicVersion
-  implementation 'id.tru.sdk:tru-sdk-android:0.2.5'
-  api 'com.facebook.react:react-native:+'
+  implementation "id.tru.sdk:tru-sdk-android:0.2.5"
+  api "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
 }
