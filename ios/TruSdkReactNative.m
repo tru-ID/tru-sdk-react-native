@@ -2,6 +2,10 @@
 
 @interface RCT_EXTERN_MODULE(TruSdkReactNative, NSObject)
 
+RCT_EXTERN_METHOD(check:(NSString)url
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(openCheckUrl:(NSString)url
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
@@ -12,10 +16,6 @@ RCT_EXTERN_METHOD(isReachable:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(checkWithTrace:(NSString)url
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
-
-// RCT_EXTERN_METHOD(getJsonResponse:(NSString)url
-//                  withResolver:(RCTPromiseResolveBlock)resolve
-//                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(getJsonPropertyValue:(NSString)url
                   key:(NSString)key
