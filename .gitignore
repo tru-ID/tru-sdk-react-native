@@ -54,10 +54,13 @@ android/app/libs
 android/keystores/debug.keystore
 android/.classpath
 android/.project
+android/.settings
+example/android/.classpath
 example/android/app/.classpath
-example/android/app/.project
 example/android/app/.settings
+example/android/app/.project
 example/android/.project
+example/android/.settings
 
 # Expo
 .expo/*
