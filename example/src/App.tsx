@@ -126,7 +126,7 @@ export default function App() {
       // let trace = (await TruSdkReactNative.checkWithTrace(postCheckNumberRes.data.check_url)) as string;
       // console.log("Trace checkWithTrace [Done] ->" + trace)
       setProgress(`Requesting PhoneCheck URL`);
-    } catch (error) {
+    } catch (error: any) {
       setProgress(`Error: ${error.message}`);
       console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
       showRequestError('Error retrieving check URL', error.message);
@@ -150,7 +150,7 @@ export default function App() {
         setProgress(`❌ failed PhoneCheck match`);
         showMatchFailure();
       }
-    } catch (error) {
+    } catch (error: any) {
       setProgress(`Error: ${error.message}`);
       console.log(JSON.stringify(error, null, 2));
       showRequestError('Error retrieving check result', error.message);
