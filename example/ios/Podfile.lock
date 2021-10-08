@@ -267,10 +267,10 @@ PODS:
     - React-cxxreact (= 0.64.2)
     - React-jsi (= 0.64.2)
     - React-perflogger (= 0.64.2)
-  - tru-sdk-ios (0.2.8)
-  - tru-sdk-react-native (0.3.6):
+  - tru-sdk-ios (0.2.9)
+  - tru-sdk-react-native (0.3.7):
     - React-Core
-    - tru-sdk-ios (~> 0.2.8)
+    - tru-sdk-ios (~> 0.2.9)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -375,7 +375,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: e686045572151edef46010a6f819ade377dfeb4b
-  FBReactNativeSpec: fb6cd915d6fcc63a89db6440171e9d2c1fae32bc
+  FBReactNativeSpec: ffbeec31f8791b178f359578a16388d8fe632520
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
@@ -400,10 +400,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
-  tru-sdk-ios: 3f898e4793c7f950d4a7d8c7932b86e8dc85cce3
-  tru-sdk-react-native: ee65fb6933902bd26fa7c7e430d323f29380b47b
+  tru-sdk-ios: f19e60e053ac111baeae0304c1c4f7c068ed1525
+  tru-sdk-react-native: 4c522d6aa7ad1c8439d9b4900dfb8d86b67d36bc
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
 PODFILE CHECKSUM: 40013da85fb8f5da2836e922aae69c1ff5c1a843
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.11.2
