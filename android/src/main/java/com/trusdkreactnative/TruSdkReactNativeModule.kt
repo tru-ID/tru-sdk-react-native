@@ -82,7 +82,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
   }
 
   @ReactMethod
-  fun isReachable(dataResidency: String?, promise: Promise) {
+  fun isReachableWithDataResidency(dataResidency: String?, promise: Promise) {
     try {
       Log.d(TAG,"isReachable is called")
       val truSdk = TruSDK.getInstance()
