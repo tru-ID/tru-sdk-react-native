@@ -8,6 +8,7 @@ type TruSdkReactNativeType = {
   check(url: string): Promise<string | null>;
   checkWithTrace(url: string): Promise<string | null>;
   isReachable(): Promise<string | null>;
+  isReachable(dataResidency: string): Promise<string | null>;
   /**
    * @deprecated since version 0.3.3
    */

@@ -92,6 +92,30 @@ class TruSdkReactNative: NSObject {
 
     }
 
+    @objc(isReachable:withResolver:withRejecter:)
+    public func isReachable(dataResidency: String?, 
+                            resolve: @escaping RCTPromiseResolveBlock,
+                            reject: @escaping RCTPromiseRejectBlock) -> Void {
+
+        let truSdk: TruSDK = TruSDK()
+        truSdk.isReachable(dataResidency: dataResidency){ result in
+            switch(result) {
+            case .success(let reachabilityDetails):
+                do{
+                    let jsonData = try JSONEncoder().encode(reachabilityDetails)
+                    let jsonString = String(data: jsonData, encoding: .utf8)!
+                    resolve(jsonString)
+                } catch {
+                    reject("Error", "Unable to decode reachability details to json", nil)
+                }
+            case .failure(let error):
+                reject("Error", "\(error)", nil)
+            }
+        }
+
+    }
+
+
     @objc(getJsonPropertyValue:key:withResolver:withRejecter:)
     public func getJsonPropertyValue(url: String,
                                      key: String,
