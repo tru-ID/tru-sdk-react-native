@@ -92,7 +92,7 @@ class TruSdkReactNative: NSObject {
 
     }
 
-    @objc(isReachable:withResolver:withRejecter:)
+    @objc(isReachableWithDataResidency:withResolver:withRejecter:)
     public func isReachable(dataResidency: String?, 
                             resolve: @escaping RCTPromiseResolveBlock,
                             reject: @escaping RCTPromiseRejectBlock) -> Void {
