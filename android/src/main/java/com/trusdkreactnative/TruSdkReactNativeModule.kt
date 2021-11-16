@@ -30,7 +30,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
         val truSdk = TruSDK.getInstance()
-        val isOnCellular = truSdk.check(url)
+        truSdk.check(url)
         promise.resolve(url) //for interface consistency
       } catch (exception: Exception) {
         promise.reject(exception)
@@ -43,7 +43,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
         val truSdk = TruSDK.getInstance()
-        val isOnCellular = truSdk.check(url)
+        truSdk.check(url)
         promise.resolve(url) //for interface consistency
       } catch (exception: Exception) {
         promise.reject(exception)
