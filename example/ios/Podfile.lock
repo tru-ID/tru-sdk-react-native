@@ -268,7 +268,7 @@ PODS:
     - React-jsi (= 0.64.2)
     - React-perflogger (= 0.64.2)
   - tru-sdk-ios (0.2.9)
-  - tru-sdk-react-native (0.3.7):
+  - tru-sdk-react-native (0.3.8):
     - React-Core
     - tru-sdk-ios (~> 0.2.9)
   - Yoga (1.14.0)
@@ -401,7 +401,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   tru-sdk-ios: f19e60e053ac111baeae0304c1c4f7c068ed1525
-  tru-sdk-react-native: 4c522d6aa7ad1c8439d9b4900dfb8d86b67d36bc
+  tru-sdk-react-native: cc8ee4ed45dc635ad67221d24736ef84bf771190
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
 PODFILE CHECKSUM: 40013da85fb8f5da2836e922aae69c1ff5c1a843
