@@ -82,6 +82,19 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
   }
 
   @ReactMethod
+  fun isReachableWithDataResidency(dataResidency: String?, promise: Promise) {
+    try {
+      Log.d(TAG,"isReachableWithDataResidency is called")
+      val truSdk = TruSDK.getInstance()
+      val reachabilityInfo: ReachabilityDetails? = truSdk.isReachable(dataResidency)
+      val payload = reachabilityInfo?.toJsonString()
+      promise.resolve(payload)
+    }catch (exception: java.lang.Exception) {
+      promise.reject(exception)
+    }
+  }
+
+  @ReactMethod
   fun getJsonPropertyValue(url: String, key: String, promise: Promise) {
     try {
       val truSdk = TruSDK.getInstance()

@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### [0.3.8](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.3.7...v0.3.8) (2021-11-15)
+### Changes
+* Bump tru-android-sdk dependency to v0.2.10.
+* iOS example App ATS enable
 ### [0.3.7](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.3.6...v0.3.7) (2021-10-08)
 ### Changes
 * Bump tru-ios-sdk dependency to v0.2.9.
