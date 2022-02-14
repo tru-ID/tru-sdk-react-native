@@ -25,7 +25,7 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     return "TruSdkReactNative"
   }
 
-  @ReactMethod // will be deprecated at the next revision
+  @ReactMethod // deprecated as of version 0.3.3
   fun openCheckUrl(url: String, promise: Promise) {
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
@@ -38,12 +38,25 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     }
   }
 
-  @ReactMethod
+  @ReactMethod // deprecated as of version 0.4.0
   fun check(url: String, promise: Promise) {
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
         val truSdk = TruSDK.getInstance()
         truSdk.check(url)
+        promise.resolve(url) //for interface consistency
+      } catch (exception: Exception) {
+        promise.reject(exception)
+      }
+    }
+  }
+
+  @ReactMethod
+  fun checkUrlWithResponseBody(url: String, promise: Promise) {
+    CoroutineScope(context = Dispatchers.IO).launch {
+      try {
+        val truSdk = TruSDK.getInstance()
+        truSdk.checkUrlWithResponseBody(url)
         promise.resolve(url) //for interface consistency
       } catch (exception: Exception) {
         promise.reject(exception)
