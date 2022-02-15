@@ -3,7 +3,7 @@ import tru_sdk_ios
 @objc(TruSdkReactNative)
 class TruSdkReactNative: NSObject {
 
-    // will be deprecated at the next release
+    // deprecated as of version 0.3.3
     @objc(openCheckUrl:withResolver:withRejecter:)
     public func openCheckUrl(url: String,
                              resolve: @escaping RCTPromiseResolveBlock,
@@ -23,7 +23,7 @@ class TruSdkReactNative: NSObject {
             }
         }
     }
-
+    // deprecated as of version 0.4.0
     @objc(check:withResolver:withRejecter:)
     public func check(url: String,
                              resolve: @escaping RCTPromiseResolveBlock,
@@ -36,6 +36,26 @@ class TruSdkReactNative: NSObject {
 
         let truSdk: TruSDK = TruSDK()
         truSdk.check(url: nurl) { error in
+            if let error = error as NSError? {
+                reject("Error", error.localizedDescription, error)
+            } else {
+                resolve(url)
+            }
+        }
+    }
+
+    @objc(checkUrlWithResponseBody:withResolver:withRejecter:)
+    public func checkUrlWithResponseBody(url: String,
+                             resolve: @escaping RCTPromiseResolveBlock,
+                             reject: @escaping RCTPromiseRejectBlock) -> Void {
+
+        guard let nurl = URL(string: url) else {
+            reject("Error", "Unable to create a URL with \(url)", nil)
+            return
+        }
+
+        let truSdk: TruSDK = TruSDK()
+        truSdk.checkUrlWithResponseBody(url: nurl) { error, body  in
             if let error = error as NSError? {
                 reject("Error", error.localizedDescription, error)
             } else {
@@ -115,7 +135,7 @@ class TruSdkReactNative: NSObject {
 
     }
 
-
+    //deprecated as of version 0.3.3
     @objc(getJsonPropertyValue:key:withResolver:withRejecter:)
     public func getJsonPropertyValue(url: String,
                                      key: String,
