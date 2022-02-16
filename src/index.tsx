@@ -1,7 +1,7 @@
 import { NativeModules } from 'react-native';
 
 type TruSdkReactNativeType = {
-  checkUrlWithResponseBody(url: string): Promise<string | null>;
+  checkUrlWithResponseBody(url: string): Promise<{code: string, check_id: string, reference_id: string} | null>;
   checkWithTrace(url: string): Promise<string | null>;
   isReachable(): Promise<string | null>;
   isReachableWithDataResidency(dataResidency: string): Promise<string | null>;

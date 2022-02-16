@@ -59,7 +59,7 @@ class TruSdkReactNative: NSObject {
             if let error = error as NSError? {
                 reject("Error", error.localizedDescription, error)
             } else {
-                resolve(url)
+                resolve(body) // body is a JSON object
             }
         }
     }
