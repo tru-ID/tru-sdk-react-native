@@ -58,12 +58,17 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
         val truSdk = TruSDK.getInstance()
         val body = truSdk.checkUrlWithResponseBody(url)
 
-        val code = body.get("code")
-        val check_id = body.get("check_id")
-        val reference_id = body.get("reference_id")
-        val dict = mapOf("code" to code, "check_id" to check_id, "reference_id" to reference_id)
-        promise.resolve(dict) //for interface consistency
-        
+        if (body.has("code") && body.has("check_id")) {
+              val success = mapOf("code" to code, "check_id" to check_id, "reference_id" to reference_id)
+              promise.resolve(success) //for interface consistency
+        } else if (body.has("error") && body.has("error_description")) {
+              val failure = mapOf("error" to body.get("error"), "error_description" to body.get("error_description"), "check_id" to body.get("check_id") ,"reference_id" to body.get("reference_id"))
+              promise.resolve(failure) //for interface consistency
+        } else {
+          //TODO
+          promise.reject(nil)//need a throwable here.
+        }
+
       } catch (exception: Exception) {
         promise.reject(exception)
       }
