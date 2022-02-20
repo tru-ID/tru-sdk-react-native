@@ -59,25 +59,37 @@ class TruSdkReactNative: NSObject {
             if let error = error as NSError? {
                 reject("Error", error.localizedDescription, error)
             } else {
-                if body["code"] && body["check_id"] {
-                    //return a dictionary with the successful response
-                    let success = [
-                        "code": body["code"],
-                        "check_id": body["check_id"],
-                        "reference_id": body["reference_id"]
+
+                //To be enabled for v0.2 endpoint
+//                guard let body = body else {
+//                    reject("Error", "Missing body", nil)
+//                    return
+//
+//                }
+                
+                if let body = body {
+                    if body["code"] != nil && body["check_id"] != nil {
+                        //return a dictionary with the successful response
+                        let success = [
+                            "code": body["code"],
+                            "check_id": body["check_id"],
+                            "reference_id": body["reference_id"]
+                            ]
+                        resolve(success) //body is a dictionary
+                    } else if body["error"] != nil && body["error_description"] != nil {
+                        //return a dictionary with the error response
+                        let failure = [
+                            "error":body["error"],
+                            "error_description":body["error_description"],
+                            "check_id": body["check_id"],
+                            "reference_id": body["reference_id"]
                         ]
-                    resolve(success) //body is a dictionary
-                } else if body["error"] && body["error_description"]{
-                    //return a dictionary with the error response
-                    let failure = [
-                        "error":body["error"],
-                        "error_description":body["error_description"],
-                        "check_id": body["check_id"],
-                        "reference_id": body["reference_id"]
-                    ]
-                    resolve(failure)
+                        resolve(failure)
+                    } else {
+                        reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
+                    }
                 } else {
-                    reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary")
+                    resolve([String:Any]()) //Since v0.1 does not return a body, we are returning an empty dictionary
                 }
             }
         }
