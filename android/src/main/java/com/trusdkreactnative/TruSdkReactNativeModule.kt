@@ -14,6 +14,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.net.URL
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.WritableMap
+import com.facebook.react.common.MapBuilder
+import com.facebook.react.bridge.WritableNativeMap
+
+
+
 
 class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactContextBaseJavaModule(reactContext) {
 
@@ -56,8 +63,24 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
     CoroutineScope(context = Dispatchers.IO).launch {
       try {
         val truSdk = TruSDK.getInstance()
-        truSdk.checkUrlWithResponseBody(url)
-        promise.resolve(url) //for interface consistency
+        val body = truSdk.checkUrlWithResponseBody(url)
+        if (body != null) {
+          if (body.has("code") && body.has("check_id")) {
+            val success = mutableMapOf("code" to body.get("code"), "check_id" to body.get("check_id"), "reference_id" to body.get("reference_id"))
+            promise.resolve(success) //for interface consistency
+          } else if (body.has("error") && body.has("error_description")) {
+            val failure = mutableMapOf("error" to body.get("error"),
+              "error_description" to body.get("error_description"),
+              "check_id" to body.get("check_id") ,
+              "reference_id" to body.get("reference_id"))
+            promise.resolve(failure) //for interface consistency
+          } else {
+            throw Exception("There is an issue with response body. Unable to serialise success or error from the dictionary")
+          }
+        } else {
+          //val map: WritableMap = WritableNativeMap()
+          promise.resolve(WritableNativeMap())
+        }
       } catch (exception: Exception) {
         promise.reject(exception)
       }
