@@ -56,6 +56,8 @@ The SDK contains an embedded example to make building and testing the SDK bridge
     - Set `ANDROID_HOME` environment variable (ie `export ANDROID_HOME=~/Library/Android/sdk`). Although `$ANDROID_HOME` is apparently deprecated it is still required.
     - Accepted the SDK licenses `$ANDROID_HOME/tools/bin/sdkmanager --licenses` or `$ANDROID_SDK_ROOT/tools/bin/sdkmanager --licenses`
 - For metro bundler, require node version > 10
+- Setup and run the [tru.ID example server](https://github.com/tru-ID/dev-server/blob/main/README.md)
+- Create configuration cp .env.example .env and update the BASE_URL value in the .env file to point to your running example server
 - `yarn bootstrap && cd example`
     - Run Android: `yarn android`
     - Run iOS: `yarn ios`
