@@ -4,24 +4,26 @@ type ResponseBodySuccess = {
   code: string;
   check_id: string;
   reference_id?: string;
-}
+};
 
 type ResponseBodyError = {
-  error: string
-  error_description: string
-  check_id: string
-  reference_id?: string
-}
+  error: string;
+  error_description: string;
+  check_id: string;
+  reference_id?: string;
+};
 
 type TruSdkReactNativeType = {
-  checkUrlWithResponseBody(url: string): Promise<ResponseBodySuccess | ResponseBodyError>;
+  checkUrlWithResponseBody(
+    url: string
+  ): Promise<ResponseBodySuccess | ResponseBodyError>;
   checkWithTrace(url: string): Promise<string | null>;
   isReachable(): Promise<string | null>;
   isReachableWithDataResidency(dataResidency: string): Promise<string | null>;
-   /**
+  /**
    * @deprecated since version 0.3.3
    */
-    check(url: string): Promise<string | null>;
+  check(url: string): Promise<string | null>;
 
   /**
    * @deprecated since version 0.3.3

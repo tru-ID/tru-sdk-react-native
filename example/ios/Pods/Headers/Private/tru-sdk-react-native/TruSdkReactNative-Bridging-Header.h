@@ -1,0 +1,1 @@
+../../../../../../ios/TruSdkReactNative-Bridging-Header.h

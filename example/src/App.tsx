@@ -1,25 +1,21 @@
-import * as React from 'react';
-import {
-  GestureResponderEvent,
-  Keyboard,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
-
 // @ts-ignore
 import { BASE_URL } from '@env';
-
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  ActivityIndicator,
-  Alert,
-  Image,
-} from 'react-native';
 import TruSdkReactNative from '@tru_id/tru-sdk-react-native';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import * as React from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  GestureResponderEvent,
+  Image,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 const client: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -119,7 +115,9 @@ export default function App() {
     try {
       setProgress(`Requesting PhoneCheck URL`);
       console.log(`PhoneCheck [Start] ->`);
-      await TruSdkReactNative.checkUrlWithResponseBody(postCheckNumberRes.data.check_url);
+      await TruSdkReactNative.checkUrlWithResponseBody(
+        postCheckNumberRes.data.check_url
+      );
       console.log(`PhoneCheck [Done] ->`);
       // Alternatively check with trace
       //console.log("Trace checkWithTrace [Start] ->")

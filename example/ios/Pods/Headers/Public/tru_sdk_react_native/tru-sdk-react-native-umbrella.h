@@ -1,0 +1,1 @@
+../../../Target Support Files/tru-sdk-react-native/tru-sdk-react-native-umbrella.h

@@ -17,12 +17,11 @@ target 'TruSdkReactNativeExample' do
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable these next few lines.
+  # you should disable the next line.
+  use_flipper!()
 
-  # Flipper-Folly doesn't compile under Xcode12.5 (as of 28 April 2021)
-  # Enable below if you are using Xcode 12.4
-  #use_flipper!({ 'Flipper' => '0.86.0' })
-  #post_install do |installer|
-  #  flipper_post_install(installer)
-  #end
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
 end
