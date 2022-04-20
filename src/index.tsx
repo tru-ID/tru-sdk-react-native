@@ -13,11 +13,20 @@ type ResponseBodyError = {
   reference_id?: string;
 };
 
+type ResponseBodySuccessWithTrace = ResponseBodySuccess & {
+  trace: string;
+};
+type ResponseBodyErrorWithTrace = ResponseBodyError & {
+  trace: string;
+};
+
 type TruSdkReactNativeType = {
   checkUrlWithResponseBody(
     url: string
   ): Promise<ResponseBodySuccess | ResponseBodyError>;
-  checkWithTrace(url: string): Promise<string | null>;
+  checkWithTrace(
+    url: string
+  ): Promise<ResponseBodySuccessWithTrace | ResponseBodyErrorWithTrace>;
   isReachable(): Promise<string | null>;
   isReachableWithDataResidency(dataResidency: string): Promise<string | null>;
   /**

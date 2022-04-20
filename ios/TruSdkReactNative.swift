@@ -66,7 +66,7 @@ class TruSdkReactNative: NSObject {
 //                    return
 //
 //                }
-                
+
                 if let body = body {
                     if body["code"] != nil && body["check_id"] != nil {
                         //return a dictionary with the successful response
@@ -113,11 +113,37 @@ class TruSdkReactNative: NSObject {
             }
 
             guard let trace = traceInfo else {
-                reject("Error", "There is not error received, however TraceInfo is not available", nil)
+                reject("Error", "There is no 'trace' property in TraceInfo", nil)
                 return
             }
 
-            resolve(trace.trace)
+            guard let body = trace["responseBody"] else {
+                reject("Error", "There is no 'responseBody' property in TraceInfo", nil)
+                return
+            }
+
+            if body["code"] != nil && body["check_id"] != nil {
+                //return a dictionary with the successful response
+                let success = [
+                    "code": body["code"],
+                    "check_id": body["check_id"],
+                    "reference_id": body["reference_id"],
+                    "trace": trace
+                ]
+                resolve(success) //body is a dictionary
+            } else if body["error"] != nil && body["error_description"] != nil {
+                //return a dictionary with the error response
+                let failure = [
+                    "error":body["error"],
+                    "error_description":body["error_description"],
+                    "check_id": body["check_id"],
+                    "reference_id": body["reference_id"],
+                    "trace": trace
+                ]
+                resolve(failure)
+            } else {
+                reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
+            }
         }
     }
 

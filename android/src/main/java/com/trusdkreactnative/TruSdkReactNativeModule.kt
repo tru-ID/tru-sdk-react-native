@@ -94,8 +94,29 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
         Log.d(TAG,"checkWithTrace is called")
         val truSdk = TruSDK.getInstance()
         val traceInfo = truSdk.checkWithTrace(URL(url))
-        promise.resolve(traceInfo.trace)
-        Log.d("Bridge","checkWithTrace Promise resolved")
+        val body = traceInfo.responseBody
+        if (body.has("code") && body.has("check_id")) {
+          val success = mutableMapOf(
+            "code" to body.get("code"),
+            "check_id" to body.get("check_id"),
+            "reference_id" to body.get("reference_id"),
+            "trace" to traceInfo.get("trace")
+          )
+          promise.resolve(success) //for interface consistency
+          Log.d("Bridge","checkWithTrace Promise resolved")
+        } else if (body.has("error") && body.has("error_description")) {
+          val failure = mutableMapOf(
+            "error" to body.get("error"),
+            "error_description" to body.get("error_description"),
+            "check_id" to body.get("check_id") ,
+            "reference_id" to body.get("reference_id"),
+            "trace" to traceInfo.get("trace")
+          )
+          promise.resolve(failure) //for interface consistency
+          Log.d("Bridge","checkWithTrace Promise rejection")
+        } else {
+          throw Exception("There is an issue with response body. Unable to serialise success or error from the dictionary")
+        }
       } catch (exception: java.lang.Exception) {
         Log.d(TAG,"checkWithTrace Promise rejection")
         promise.reject(exception)
