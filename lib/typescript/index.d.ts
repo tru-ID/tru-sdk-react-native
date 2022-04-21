@@ -9,15 +9,14 @@ declare type ResponseBodyError = {
     check_id: string;
     reference_id?: string;
 };
-declare type ResponseBodySuccessWithTrace = ResponseBodySuccess & {
-    trace: string;
-};
-declare type ResponseBodyErrorWithTrace = ResponseBodyError & {
+declare type ResponseBodySuccessWithTrace = ResponseBodySuccess & TraceOnlyResponse;
+declare type ResponseBodyErrorWithTrace = ResponseBodyError & TraceOnlyResponse;
+declare type TraceOnlyResponse = {
     trace: string;
 };
 declare type TruSdkReactNativeType = {
     checkUrlWithResponseBody(url: string): Promise<ResponseBodySuccess | ResponseBodyError | void>;
-    checkWithTrace(url: string): Promise<ResponseBodySuccessWithTrace | ResponseBodyErrorWithTrace | void>;
+    checkWithTrace(url: string): Promise<ResponseBodySuccessWithTrace | ResponseBodyErrorWithTrace | TraceOnlyResponse>;
     isReachable(): Promise<string | null>;
     isReachableWithDataResidency(dataResidency: string): Promise<string | null>;
     /**
