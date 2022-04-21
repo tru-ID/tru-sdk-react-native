@@ -89,7 +89,7 @@ class TruSdkReactNative: NSObject {
                         reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
                     }
                 } else {
-                    resolve([String:Any]()) //Since v0.1 does not return a body, we are returning an empty dictionary
+                    resolve(nil) //Since v0.1 does not return a body, we are returning nil
                 }
             }
         }
@@ -106,17 +106,19 @@ class TruSdkReactNative: NSObject {
         }
 
         let truSdk: TruSDK = TruSDK()
+
         truSdk.checkWithTrace(url: nurl) { error, traceInfo in
             if let error = error {
                 reject("Error", "Error from checkWithTrace =>\(error)", nil)
                 return
             } else {
+//                To be enabled for v0.2 endpoint
 //                guard let trace = traceInfo else {
 //                    reject("Error", "There is no 'trace' property in TraceInfo", nil)
 //                    return
 //                }
 //
-//                guard let body = trace["responseBody"] else {
+//                guard let body = traceInfo?.responseBody else {
 //                    reject("Error", "There is no 'responseBody' property in TraceInfo", nil)
 //                    return
 //                }
@@ -145,13 +147,11 @@ class TruSdkReactNative: NSObject {
                     } else {
                         reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
                     }
+                } else {
+                    resolve(nil) //Since v0.1 does not return a body, we are returning it nil
                 }
-               
             }
 
-           
-
-            
         }
     }
 
