@@ -110,40 +110,48 @@ class TruSdkReactNative: NSObject {
             if let error = error {
                 reject("Error", "Error from checkWithTrace =>\(error)", nil)
                 return
-            }
-
-            guard let trace = traceInfo else {
-                reject("Error", "There is no 'trace' property in TraceInfo", nil)
-                return
-            }
-
-            guard let body = trace["responseBody"] else {
-                reject("Error", "There is no 'responseBody' property in TraceInfo", nil)
-                return
-            }
-
-            if body["code"] != nil && body["check_id"] != nil {
-                //return a dictionary with the successful response
-                let success = [
-                    "code": body["code"],
-                    "check_id": body["check_id"],
-                    "reference_id": body["reference_id"],
-                    "trace": trace
-                ]
-                resolve(success) //body is a dictionary
-            } else if body["error"] != nil && body["error_description"] != nil {
-                //return a dictionary with the error response
-                let failure = [
-                    "error":body["error"],
-                    "error_description":body["error_description"],
-                    "check_id": body["check_id"],
-                    "reference_id": body["reference_id"],
-                    "trace": trace
-                ]
-                resolve(failure)
             } else {
-                reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
+//                guard let trace = traceInfo else {
+//                    reject("Error", "There is no 'trace' property in TraceInfo", nil)
+//                    return
+//                }
+//
+//                guard let body = trace["responseBody"] else {
+//                    reject("Error", "There is no 'responseBody' property in TraceInfo", nil)
+//                    return
+//                }
+                if let body = traceInfo?.responseBody {
+                    if body["code"] != nil && body["check_id"] != nil {
+                        //return a dictionary with the successful response
+                        let success = [
+                            "code": body["code"],
+                            "check_id": body["check_id"],
+                            "reference_id": body["reference_id"],
+                            "trace": traceInfo?.trace
+                        ]
+                        resolve(success) //body is a dictionary
+                        print("Bridge","checkWithTrace Promise resolved")
+                    } else if body["error"] != nil && body["error_description"] != nil {
+                        //return a dictionary with the error response
+                        let failure = [
+                            "error":body["error"],
+                            "error_description":body["error_description"],
+                            "check_id": body["check_id"],
+                            "reference_id": body["reference_id"],
+                            "trace": traceInfo?.trace
+                        ]
+                        resolve(failure)
+                        print("Bridge","checkWithTrace Promise rejection")
+                    } else {
+                        reject("Error", "There is an issue with response body. Unable to serialise success or error from the dictionary", error)
+                    }
+                }
+               
             }
+
+           
+
+            
         }
     }
 
