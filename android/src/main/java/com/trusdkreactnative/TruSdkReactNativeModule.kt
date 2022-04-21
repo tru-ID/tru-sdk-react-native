@@ -5,7 +5,7 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.bridge.Arguments
 import id.tru.sdk.ReachabilityDetails
 import id.tru.sdk.TruSDK
 import java.net.URL
@@ -127,10 +127,13 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) :
         } else {
           // v0.1 endpoint doesn't return any body
           // so we return only the trace
-          val responseWithTrace = mutableMapOf("trace" to traceInfo.trace)
+          val responseWithTrace = Arguments.createMap().apply {
+            putString("trace", traceInfo.trace)
+          }
           promise.resolve(responseWithTrace)
+          Log.d(TAG, "responseWithTrace")
         }
-      } catch (exception: java.lang.Exception) {
+      } catch (exception: Exception) {
         Log.d(TAG, "checkWithTrace Promise rejection")
         promise.reject(exception)
       }
