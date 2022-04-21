@@ -118,6 +118,9 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext): ReactConte
           } else {
             throw Exception("There is an issue with response body. Unable to serialise success or error from the dictionary")
           }
+        } else {
+          //val map: WritableMap = WritableNativeMap()
+          promise.resolve(WritableNativeMap())
         }
 
       } catch (exception: java.lang.Exception) {
