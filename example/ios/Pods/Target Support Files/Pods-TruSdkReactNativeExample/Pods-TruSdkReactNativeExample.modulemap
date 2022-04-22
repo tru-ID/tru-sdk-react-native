@@ -1,0 +1,6 @@
+module Pods_TruSdkReactNativeExample {
+  umbrella header "Pods-TruSdkReactNativeExample-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+module tru_sdk_ios {
+  umbrella header "tru-sdk-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+module tru_sdk_react_native {
+  umbrella header "tru-sdk-react-native-umbrella.h"
+
+  export *
+  module * { export * }
+}
