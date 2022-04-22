@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### [0.5.0](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.4.3...v0.5.0) (2022-04-22)
+### Changes
+* Bump tru-android-sdk dependency to v0.3.3.
+* Bump tru-ios-sdk dependency to v0.3.3.
+### Bug Fixes
+* checkUrlWithResponseBody method amended
+* checkWithTrace method amended
 ### [0.4.3](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.4.2...v0.4.3) (2022-03-28)
 ### Changes
 * Bump tru-android-sdk dependency to v0.3.2.
@@ -11,7 +18,7 @@ All notable changes to this project will be documented in this file. See [standa
 * Bump tru-ios-sdk dependency to v0.3.1.
 ### [0.4.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.4.0...v0.4.1) (2022-02-22)
 ### Bug Fixes
-* changeUrlWithResponseBody method amended
+* checkUrlWithResponseBody method amended
 ### [0.4.0](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.3.9...v0.4.0) (2022-02-14)
 ### Changes
 * Bump tru-android-sdk dependency to v0.3.0.

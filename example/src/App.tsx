@@ -119,14 +119,6 @@ export default function App() {
         postCheckNumberRes.data.check_url
       );
       console.log(`PhoneCheck [Done] ->`);
-      
-      // Alternatively check with trace
-      // console.log('Trace checkWithTrace [Start] ->');
-      // const trace = await TruSdkReactNative.checkWithTrace(
-      //   postCheckNumberRes.data.check_url
-      // );
-      // console.log(trace)
-      // console.log("Trace checkWithTrace [Done] ->")
      
       setProgress(`Requesting PhoneCheck URL`);
     } catch (error: any) {

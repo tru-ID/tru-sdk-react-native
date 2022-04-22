@@ -1,6 +1,6 @@
 {
   "name": "tru-sdk-react-native",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "summary": "React Native SDK for tru.ID",
   "homepage": "https://github.com/tru-ID/tru-sdk-react-native#readme",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/tru-ID/tru-sdk-react-native.git",
-    "tag": "0.4.3"
+    "tag": "0.5.0"
   },
   "source_files": "ios/**/*.{h,m,mm,swift}",
   "dependencies": {
@@ -18,7 +18,7 @@
 
     ],
     "tru-sdk-ios": [
-      "~> 0.3.2"
+      "~> 0.3.3"
     ]
   }
 }
