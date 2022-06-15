@@ -128,7 +128,7 @@ def kotlin_version = getExtOrDefault('kotlinVersion')
 
 dependencies {
   // noinspection GradleDynamicVersion
-  implementation "id.tru.sdk:tru-sdk-android:0.3.3"
+  implementation "id.tru.sdk:tru-sdk-android:0.3.4"
   implementation "commons-io:commons-io:2.4"
   api "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

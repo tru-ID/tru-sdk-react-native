@@ -1,17 +1,13 @@
 package com.trusdkreactnative
 
 import android.util.Log
-import com.facebook.react.bridge.Promise
-import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.*
 import id.tru.sdk.ReachabilityDetails
 import id.tru.sdk.TruSDK
-import java.net.URL
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.URL
 
 class TruSdkReactNativeModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
@@ -58,21 +54,25 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) :
         val body = truSdk.checkUrlWithResponseBody(url)
         if (body != null) {
           if (body.has("code") && body.has("check_id")) {
-            val success =
-                mutableMapOf(
-                    "code" to body.get("code"),
-                    "check_id" to body.get("check_id"),
-                    "reference_id" to body.get("reference_id")
-                )
+            var refId: String? = ""
+            if (body.has("reference_id")) {
+              refId = body.get("reference_id") as String
+            }
+            val success: WritableMap = WritableNativeMap()
+            success.putString("code", body.get("code") as String)
+            success.putString("check_id", body.get("check_id") as String)
+            success.putString("reference_id", refId)
             promise.resolve(success) // for interface consistency
           } else if (body.has("error") && body.has("error_description")) {
-            val failure =
-                mutableMapOf(
-                    "error" to body.get("error"),
-                    "error_description" to body.get("error_description"),
-                    "check_id" to body.get("check_id"),
-                    "reference_id" to body.get("reference_id")
-                )
+            var refId: String? = ""
+            if (body.has("reference_id")) {
+              refId = body.get("reference_id") as String
+            }
+            val failure: WritableMap = WritableNativeMap()
+            failure.putString("error", body.get("error") as String)
+            failure.putString("check_id", body.get("check_id") as String)
+            failure.putString("error_description", body.get("error_description") as String)
+            failure.putString("reference_id", refId)
             promise.resolve(failure) // for interface consistency
           } else {
             throw Exception(
@@ -99,24 +99,28 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) :
         val body = traceInfo.responseBody
         if (body != null) {
           if (body.has("code") && body.has("check_id")) {
-            val success =
-                mutableMapOf(
-                    "code" to body.get("code"),
-                    "check_id" to body.get("check_id"),
-                    "reference_id" to body.get("reference_id"),
-                    "trace" to traceInfo.trace
-                )
+            var refId: String? = ""
+            if (body.has("reference_id")) {
+              refId = body.get("reference_id") as String
+            }
+            val success: WritableMap = WritableNativeMap()
+            success.putString("code", body.get("code") as String)
+            success.putString("check_id", body.get("check_id") as String)
+            success.putString("reference_id", refId)
+            success.putString("trace", traceInfo.trace)
             promise.resolve(success) // for interface consistency
             Log.d("Bridge", "checkWithTrace Promise resolved")
           } else if (body.has("error") && body.has("error_description")) {
-            val failure =
-                mutableMapOf(
-                    "error" to body.get("error"),
-                    "error_description" to body.get("error_description"),
-                    "check_id" to body.get("check_id"),
-                    "reference_id" to body.get("reference_id"),
-                    "trace" to traceInfo.trace
-                )
+            var refId: String? = ""
+            if (body.has("reference_id")) {
+              refId = body.get("reference_id") as String
+            }
+            val failure: WritableMap = WritableNativeMap()
+            failure.putString("error", body.get("error") as String)
+            failure.putString("error_description", body.get("error_description") as String)
+            failure.putString("check_id", body.get("check_id") as String)
+            failure.putString("reference_id", refId)
+            failure.putString("trace", traceInfo.trace)
             promise.resolve(failure) // for interface consistency
             Log.d("Bridge", "checkWithTrace Promise rejection")
           } else {
