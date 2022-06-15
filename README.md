@@ -39,7 +39,6 @@ const details = await TruSdkReactNative.isReachable();
 
 // ...
 
-
 // Make a GET request using the cellular connection to the check URL
 await TruSdkReactNative.checkUrlWithResponseBody(url);
 
@@ -61,7 +60,7 @@ The SDK contains an embedded example to make building and testing the SDK bridge
 - `yarn bootstrap && cd example`
     - Run Android: `yarn android`
     - Run iOS: `yarn ios`
-
+   
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

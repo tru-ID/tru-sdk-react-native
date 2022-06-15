@@ -1,6 +1,11 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### [0.5.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.5.0...v0.5.1) (2022-06-15)
+### Changes
+* Bump tru-ios-sdk dependency to v0.3.4.
+* Bump  tru-android-sdk dependency to v0.3.4.
+* Changed to v0.2 endpoint for PhoneCheck within the Example app
 ### [0.5.0](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.4.3...v0.5.0) (2022-04-22)
 ### Changes
 * Bump tru-android-sdk dependency to v0.3.3.

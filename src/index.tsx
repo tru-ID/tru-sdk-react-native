@@ -23,10 +23,8 @@ type TraceOnlyResponse = {
 type TruSdkReactNativeType = {
   checkUrlWithResponseBody(
     url: string
-  ): Promise<
-    | ResponseBodySuccess /* v0.2 */
-    | ResponseBodyError /* v0.2 */
-    | void /* v0.1 */
+  ): Promise<ResponseBodySuccess | ResponseBodyError /* v0.2 */
+      //| void /* v0.1 */
   >;
   checkWithTrace(
     url: string

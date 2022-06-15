@@ -98,9 +98,11 @@ export default function App() {
     setProgress(`Is Reachable: ${details}`);
     console.log(`Moving on with Creating PhoneCheck...`);
     let postCheckNumberRes: AxiosResponse;
+    let exchangeCheckRes: AxiosResponse;
+    // Step 1: Create a PhoneCheck/Send phone number to Backend Server (For v0.1 use '/v0.1/phone-check')
     try {
       setProgress(`Creating PhoneCheck for ${phoneNumber}`);
-      postCheckNumberRes = await client.post('/phone-check', {
+      postCheckNumberRes = await client.post('/v0.2/phone-check', {
         phone_number: phoneNumber,
       });
       console.log('[POST CHECK]:', postCheckNumberRes.data);
@@ -111,46 +113,107 @@ export default function App() {
       showRequestError('Error creating check resource', error);
       return;
     }
-
+    //Step 2 for v0.2 Only: Process the PhoneCheck/ Open check_url over cellular
     try {
       setProgress(`Requesting PhoneCheck URL`);
       console.log(`PhoneCheck [Start] ->`);
-      await TruSdkReactNative.checkUrlWithResponseBody(
-        postCheckNumberRes.data.check_url
-      );
-      console.log(`PhoneCheck [Done] ->`);
-     
-      setProgress(`Requesting PhoneCheck URL`);
+      const checkUrlWithResponseBody =
+        await TruSdkReactNative.checkUrlWithResponseBody(
+          postCheckNumberRes.data.check_url
+        );
+
+      if ('code' in checkUrlWithResponseBody) {
+        // ResponseBodySuccess
+        setProgress('checkUrlWithResponseBody success');
+        console.log('[checkUrlWithResponseBody success]');
+        exchangeCheckRes = await client.post(
+          '/v0.2/phone-check/exchange-code',
+          {
+            check_id: checkUrlWithResponseBody.check_id,
+            code: checkUrlWithResponseBody.code,
+            reference_id: checkUrlWithResponseBody.reference_id,
+          }
+        );
+        setProgress(`Getting PhoneCheck result`);
+        console.log('Getting PhoneCheck result');
+        try {
+          console.log('[CHECK RESULT]:', exchangeCheckRes.data);
+          setProgress(`Got PhoneCheck result`);
+          setIsLoading(false);
+          if (exchangeCheckRes.data.match) {
+            setProgress(`✅ successful PhoneCheck match`);
+            console.log(`✅ successful PhoneCheck match`);
+            showMatchSuccess();
+          } else {
+            setProgress(`❌ failed PhoneCheck match`);
+            console.log(`❌ failed PhoneCheck match`);
+            showMatchFailure();
+          }
+          setProgress('check status');
+        } catch (error) {
+          setProgress('exchangeCheck error: ${error.message}');
+          console.log('[exchangeCheck error]');
+        }
+      } else if ('error' in checkUrlWithResponseBody) {
+        //ResponseBodyError
+        setProgress(
+          `checkUrlWithResponseBody Error: ${checkUrlWithResponseBody.error_description}`
+        );
+        console.log(
+          `checkUrlWithResponseBody: -> ${checkUrlWithResponseBody.error}`
+        );
+      }
     } catch (error: any) {
       setProgress(`Error: ${error.message}`);
       console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
       showRequestError('Error retrieving check URL', error.message);
       return;
     }
+    // TO BE USED WITHIN v0.1 endpoint
+    // As checkWithUrlResponse method does not return any body within v0.1 endpoint you will need to add
+    // type void as a return type to the checkWithUrlResponse method description at the index.tsx file.
+    //
+    // Step 2 for v0.1
+    // try {
+    //   setProgress(`Requesting PhoneCheck URL`);
+    //   console.log(`PhoneCheck [Start] ->`);
+    //   await TruSdkReactNative.checkUrlWithResponseBody(
+    //     postCheckNumberRes.data.check_url
+    //   );
+    //   console.log(`PhoneCheck [Done] ->`);
+    
+    //   setProgress(`Requesting PhoneCheck URL`);
+    // } catch (error: any) {
+    //   setProgress(`Error: ${error.message}`);
+    //   console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
+    //   showRequestError('Error retrieving check URL', error.message);
+    //   return;
+    // }
+    
+    // Step 3 for v0.1
+    //  try {
+    //   setProgress(`Getting PhoneCheck result`);
+    //   const checkStatusRes = await client({
+    //     method: 'get',
+    //     url: `/v0.1/phone-check?check_id=${postCheckNumberRes.data.check_id}`,
+    //   });
+    //   console.log('[CHECK RESULT]:', checkStatusRes);
+    //   setProgress(`Got PhoneCheck result`);
 
-    try {
-      setProgress(`Getting PhoneCheck result`);
-      const checkStatusRes = await client({
-        method: 'get',
-        url: `/phone-check?check_id=${postCheckNumberRes.data.check_id}`,
-      });
-      console.log('[CHECK RESULT]:', checkStatusRes);
-      setProgress(`Got PhoneCheck result`);
-
-      setIsLoading(false);
-      if (checkStatusRes.data.match) {
-        setProgress(`✅ successful PhoneCheck match`);
-        showMatchSuccess();
-      } else {
-        setProgress(`❌ failed PhoneCheck match`);
-        showMatchFailure();
-      }
-    } catch (error: any) {
-      setProgress(`Error: ${error.message}`);
-      console.log(JSON.stringify(error, null, 2));
-      showRequestError('Error retrieving check result', error.message);
-      return;
-    }
+    //   setIsLoading(false);
+    //   if (checkStatusRes.data.match) {
+    //     setProgress(`✅ successful PhoneCheck match`);
+    //     showMatchSuccess();
+    //   } else {
+    //     setProgress(`❌ failed PhoneCheck match`);
+    //     showMatchFailure();
+    //   }
+    // } catch (error: any) {
+    //   setProgress(`Error: ${error.message}`);
+    //   console.log(JSON.stringify(error, null, 2));
+    //   showRequestError('Error retrieving check result', error.message);
+    //   return;
+    // }
   };
 
   return (
