@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### [0.5.2](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.5.1...v0.5.2) (2022-07-06)
+### Bug Fixes
+* checkWithTrace method amended
 ### [0.5.1](https://github.com/tru-ID/tru-sdk-react-native/compare/v0.5.0...v0.5.1) (2022-06-15)
 ### Changes
 * Bump tru-ios-sdk dependency to v0.3.4.
