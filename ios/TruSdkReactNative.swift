@@ -121,18 +121,14 @@ class TruSdkReactNative: NSObject {
                     return
                 }
                 
-                guard let body = traceInfo?.responseBody else {
-                    reject("Error", "There is no 'responseBody' property in TraceInfo", nil)
-                    return
-                }
-                if let body = traceInfo?.responseBody {
+                if let body = trace.responseBody {
                     if body["code"] != nil && body["check_id"] != nil {
                         //return a dictionary with the successful response
                         let success = [
                             "code": body["code"],
                             "check_id": body["check_id"],
                             "reference_id": body["reference_id"],
-                            "trace": traceInfo?.trace,
+                            "trace": trace.trace,
                         ]
                         resolve(success)  //body is a dictionary
                         print("Bridge", "checkWithTrace Promise resolved")
@@ -143,7 +139,7 @@ class TruSdkReactNative: NSObject {
                             "error_description": body["error_description"],
                             "check_id": body["check_id"],
                             "reference_id": body["reference_id"],
-                            "trace": traceInfo?.trace,
+                            "trace": trace.trace,
                         ]
                         resolve(failure)
                         print("Bridge", "checkWithTrace Promise rejection")
@@ -156,7 +152,7 @@ class TruSdkReactNative: NSObject {
                 } else {
                     // v0.1 endpoint doesn't return any body so we just return the trace
                     let responseWithTrace = [
-                        "trace": traceInfo?.trace,
+                        "trace": trace.trace,
                     ]
                     resolve(responseWithTrace)
                 }
