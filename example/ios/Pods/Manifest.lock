@@ -338,7 +338,7 @@ PODS:
     - React-logger (= 0.67.4)
     - React-perflogger (= 0.67.4)
   - tru-sdk-ios (0.3.4)
-  - tru-sdk-react-native (0.5.2):
+  - tru-sdk-react-native (0.5.3):
     - React-Core
     - tru-sdk-ios (~> 0.3.4)
   - Yoga (1.14.0)
@@ -528,7 +528,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9d3c82ddf7ffdad9fbe6a81c6d6f8c06385464d
   ReactCommon: 07d0c460b9ba9af3eaf1b8f5abe7daaad28c9c4e
   tru-sdk-ios: 1ae23a70eed81920b1ac632eb1f732db647edfc2
-  tru-sdk-react-native: 3855bafce6922a6718bfd682d3334fb72c59df44
+  tru-sdk-react-native: 94edead4a38fd55c8498903f857669e88c0e945d
   Yoga: d6b6a80659aa3e91aaba01d0012e7edcbedcbecd
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

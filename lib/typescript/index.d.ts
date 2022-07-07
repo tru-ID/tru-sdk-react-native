@@ -15,7 +15,7 @@ declare type TraceOnlyResponse = {
     trace: string;
 };
 declare type TruSdkReactNativeType = {
-    checkUrlWithResponseBody(url: string): Promise<ResponseBodySuccess | ResponseBodyError | void>;
+    checkUrlWithResponseBody(url: string): Promise<ResponseBodySuccess | ResponseBodyError>;
     checkWithTrace(url: string): Promise<ResponseBodySuccessWithTrace | ResponseBodyErrorWithTrace | TraceOnlyResponse>;
     isReachable(): Promise<string | null>;
     isReachableWithDataResidency(dataResidency: string): Promise<string | null>;

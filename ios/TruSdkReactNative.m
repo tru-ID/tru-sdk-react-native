@@ -17,6 +17,10 @@ RCT_EXTERN_METHOD(openCheckUrl:(NSString)url
 RCT_EXTERN_METHOD(isReachable:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(isReachableWithDataResidency:(NSString)dataResidency
+                  withResolver: (RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(checkWithTrace:(NSString)url
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
