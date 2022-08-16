@@ -59,7 +59,7 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-example/ios/Pods/
+./example/ios/Pods
 
 example/android/.project
 example/android/.settings/
@@ -69,3 +69,5 @@ example/android/app/.settings/
 android/.project
 android/.settings/
 android/.classpath
+
+example/.env

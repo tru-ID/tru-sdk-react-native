@@ -1,20 +1,22 @@
-// @ts-ignore
-import { BASE_URL } from '@env';
-import TruSdkReactNative from '@tru_id/tru-sdk-react-native';
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import * as React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
   GestureResponderEvent,
-  Image,
   Keyboard,
-  StyleSheet,
-  Text,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+} from 'react-native';
+
+// @ts-ignore
+import { BASE_URL } from '@env';
+
+import {
+  StyleSheet,
   View,
+  Text,
+  TextInput,
+  ActivityIndicator,
+  Alert,
+  Image,
 } from 'react-native';
 
 import TruSdkReactNative, {

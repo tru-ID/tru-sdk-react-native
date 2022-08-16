@@ -337,10 +337,10 @@ PODS:
     - React-jsi (= 0.67.4)
     - React-logger (= 0.67.4)
     - React-perflogger (= 0.67.4)
-  - tru-sdk-ios (0.3.4)
-  - tru-sdk-react-native (0.5.3):
+  - tru-sdk-ios (1.0.0-preview)
+  - tru-sdk-react-native (1.0.0-preview):
     - React-Core
-    - tru-sdk-ios (~> 0.3.4)
+    - tru-sdk-ios (= 1.0.0-preview)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -527,11 +527,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 3b52a7dced19cdb025b4f88ab26ceb2d85f30ba2
   React-runtimeexecutor: a9d3c82ddf7ffdad9fbe6a81c6d6f8c06385464d
   ReactCommon: 07d0c460b9ba9af3eaf1b8f5abe7daaad28c9c4e
-  tru-sdk-ios: 1ae23a70eed81920b1ac632eb1f732db647edfc2
-  tru-sdk-react-native: 94edead4a38fd55c8498903f857669e88c0e945d
+  tru-sdk-ios: 1803849f2f26f54ecb1023464f7ee0af7d76a3cb
+  tru-sdk-react-native: ed094ac0f7674ef0a6eaf4a6246a4067587f0d5b
   Yoga: d6b6a80659aa3e91aaba01d0012e7edcbedcbecd
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 5f47d297ab9e96e986912cae50372196388332db
+PODFILE CHECKSUM: 86bf6d0f35de94dc6a987a04bd0915415814cc1d
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
