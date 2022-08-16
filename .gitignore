@@ -20,11 +20,13 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+.env
 
 # Android/IntelliJ
 #
 build/
 .idea
+.vscode
 .gradle
 local.properties
 *.iml
@@ -57,6 +59,13 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+example/ios/Pods/
 
-**tru.json
+example/android/.project
+example/android/.settings/
+example/android/app/.classpath
+example/android/app/.project
+example/android/app/.settings/
+android/.project
+android/.settings/
+android/.classpath

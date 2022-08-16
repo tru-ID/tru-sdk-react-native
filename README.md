@@ -1,6 +1,34 @@
 # tru.ID SDK for React Native
-
 [![License][license-image]][license-url]
+
+The only purpose of the SDK is to force the data cellular connectivity prior to call a public URL, and will return the following JSON response
+
+* **Success**
+When the data connectivity has been achieved and a response has been received from the url endpoint
+```
+{
+"http_status": string, // HTTP status related to the url
+"response_body" : { // optional depending on the HTTP status
+           ... // the response body of the opened url 
+           ... // see API doc for /device_ip and /redirect
+                },
+"debug" : {
+    "device_info": string, 
+    "url_trace" : string
+          }
+}
+```
+
+* **Error** 
+When data connectivity is not available and/or an internal SDK error occurred
+
+```
+{
+"error" : string,
+"error_description": string
+}
+```
+Potential error codes: `sdk_no_data_connectivity`, `sdk_connection_error`, `sdk_redirect_error`, `sdk_error`.
 
 
 ## Installation
@@ -17,50 +45,97 @@ maven {
 }
 ```
 
-Note: we'll begin publishing our Android SDK to Maven central shortly.
-
 ## Compatibility
 
-- Minimum Android SDK: TruSDK requires a minimum API level of 21 (Android 5)
-
-- Compile Android SDK: TruSDK requires you to compile against API 30  (Android 11) or later.
-
-- Minimum deployment target for iOS is iOS 12
+- [Android](../tru-sdk-android#compatibility)
+- [iOS](../tru-sdk-ios#compatibility)
 
 ## Usage
 
+* Is the [device eligible](https://developer.tru.id/docs/reference/utils#tag/coverage/operation/get-public-coverage-by-device-ip) for tru.ID silent authentication?
+
 ```js
-import TruSdkReactNative from "@tru_id/tru-sdk-react-native";
+import TruSdkReactNative, {
+  ReachabilityResponse,
+  CheckResponse,
+  CheckErrorBody,
+  CheckSuccessBody,
+  ApiError,
+  ReachabilityBody,
+  ReachabilityResponseBody,
+} from '@tru_id/tru-sdk-react-native';
 
 // ...
 
-// Test if the device mobile network is currently supported 
-const details = await TruSdkReactNative.isReachable();
-
-// ...
-
-// Make a GET request using the cellular connection to the check URL
-await TruSdkReactNative.checkUrlWithResponseBody(url);
+ const res = await TruSdkReactNative.openWithDataCellular<ReachabilityResponse>("https://eu.api.tru.id/public/coverage/v0.1/device_ip");
+    if ('error' in res) {
+      // error ${err.error_description}
+    } else if ('http_status' in res) {
+      const httpStatus = success.http_status;
+      if (httpStatus === 200 && res.response_body !== undefined) {
+        const body = res.response_body as ReachabilityBody
+        // device is eligible on MNO  ${body.network_name}
+      } else if (httpStatus === 400 && res.response_body !== undefined) {
+        const body = res.response_body as ApiError;
+        // MNO not supported ${body.detail}
+      } else if (httpStatus === 412 && res.response_body !== undefined) {
+        const body = res.response_body as ApiError;
+        // Not a mobile IP ${body.detail}
+      } else if (res.response_body !== undefined) {
+        const body = res.response_body as ApiError;
+        // other error see ${body.detail}
+      }
+    }
 
 ```
 
-## Run example
+* How to open a check URL return by the [PhoneCheck API](https://developer.tru.id/docs/phone-check) or [SubscriberCheck API](https://developer.tru.id/docs/subscriber-check)
 
-The SDK contains an embedded example to make building and testing the SDK bridge easier.
+```js
+import TruSdkReactNative, {
+  ReachabilityResponse,
+  CheckResponse,
+  CheckErrorBody,
+  CheckSuccessBody,
+  ApiError,
+  ReachabilityBody,
+  ReachabilityResponseBody,
+} from '@tru_id/tru-sdk-react-native';
 
-- For iOS: Require Xcode 12+
-- For Android:
-    - Require JDK 14 (Java version 14.02 / Gradle v6.3).
-    - Android Studio or Android SDK manager via [Android developer downloads](https://developer.android.com/studio).
-    - Set `ANDROID_HOME` environment variable (ie `export ANDROID_HOME=~/Library/Android/sdk`). Although `$ANDROID_HOME` is apparently deprecated it is still required.
-    - Accepted the SDK licenses `$ANDROID_HOME/tools/bin/sdkmanager --licenses` or `$ANDROID_SDK_ROOT/tools/bin/sdkmanager --licenses`
-- For metro bundler, require node version > 10
-- Setup and run the [tru.ID example server](https://github.com/tru-ID/dev-server/blob/main/README.md)
-- Create configuration cp .env.example .env and update the BASE_URL value in the .env file to point to your running example server
-- `yarn bootstrap && cd example`
-    - Run Android: `yarn android`
-    - Run iOS: `yarn ios`
-   
+// ...
+
+const res = await TruSdkReactNative.openWithDataCellular<CheckResponse>(checkUrl);
+      if ('error' in res) {
+        // error see ${err.error_description}
+      } else if ('http_status' in res) {
+        const httpStatus = res.http_status;
+        if (httpStatus === 200 && res.response_body !== undefined) {
+            if ('error' in res.response_body) {
+              const body = res.response_body as CheckErrorBody;
+                // error see ${body.error_description}
+            } else {
+              const body = res.response_body as CheckSuccessBody;
+                // send ${body.code}, ${body.check_id} and ${body.reference_id} to back-end 
+                // to trigger a PATCH /checks/{check_id}
+            }
+        } else if (httpStatus == 400 && res.response_body !== undefined) {
+          const body = res.response_body as ApiError;
+          // MNO not supported see ${body.detail}
+        } else if (httpStatus === 412 && res.response_body !== undefined) {
+          const body = res.response_body as ApiError;
+          // Not a mobile IP see ${body.detail}
+        } else if (res.response_body !== undefined) {
+          const body = res.response_body as ApiError;
+          // other error see ${body.detail}
+        }
+      }
+
+```
+
+## Example Demo
+
+There's an embedded example demo is located in the `example` directory, see [README](./example/README.md)
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

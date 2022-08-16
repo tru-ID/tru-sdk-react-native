@@ -17,23 +17,21 @@ import {
   View,
 } from 'react-native';
 
+import TruSdkReactNative, {
+  ReachabilityResponse,
+  CheckResponse,
+  CheckErrorBody,
+  CheckSuccessBody,
+  ApiError,
+  ReachabilityBody,
+} from '@tru_id/tru-sdk-react-native';
+
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+
 const client: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
 });
-
-const isReachable = async function () {
-  console.log('[isReachable called]');
-  try {
-    const details = await TruSdkReactNative.isReachable();
-    console.log('[isReachable complete]');
-    return details;
-  } catch (ex) {
-    console.log('[isReachable error]');
-    console.error(ex);
-    return 'Unknown';
-  }
-};
 
 const AppButton = ({
   onPress,
@@ -91,131 +89,102 @@ export default function App() {
     Keyboard.dismiss();
 
     //As simulators do not have a mobile connection, it is best to use isReachable on a physical device
-
+    var canMoveToNextStep = false;
     setProgress('Checking if on a Mobile IP');
-    let details = await isReachable();
-    console.log('Is Reachable result =>' + details);
-    setProgress(`Is Reachable: ${details}`);
-    console.log(`Moving on with Creating PhoneCheck...`);
-    let postCheckNumberRes: AxiosResponse;
-    let exchangeCheckRes: AxiosResponse;
-    // Step 1: Create a PhoneCheck/Send phone number to Backend Server (For v0.1 use '/v0.1/phone-check')
-    try {
-      setProgress(`Creating PhoneCheck for ${phoneNumber}`);
-      postCheckNumberRes = await client.post('/v0.2/phone-check', {
-        phone_number: phoneNumber,
-      });
-      console.log('[POST CHECK]:', postCheckNumberRes.data);
-      setProgress(`PhoneCheck created`);
-    } catch (error) {
-      setProgress(`An error occured creating PhoneCheck`);
-      setIsLoading(false);
-      showRequestError('Error creating check resource', error);
-      return;
+    const res =
+      await TruSdkReactNative.openWithDataCellular<ReachabilityResponse>(
+        'https://eu.api.tru.id/public/coverage/v0.1/device_ip'
+      );
+    console.log('Is Reachable result =>' + JSON.stringify(res));
+    if ('error' in res) {
+      setProgress(`Is Reachable: ${res.error_description}`);
+    } else if ('http_status' in res) {
+      let httpStatus = res.http_status;
+      if (httpStatus === 200 && res.response_body !== undefined) {
+        let body = res.response_body as ReachabilityBody;
+        setProgress(`Is Reachable: ${body.network_name}`);
+        canMoveToNextStep = true;
+      } else if (httpStatus === 400 && res.response_body !== undefined) {
+        let body = res.response_body as ApiError;
+        setProgress(`Is Reachable: ${body.detail}`);
+      } else if (httpStatus === 412 && res.response_body !== undefined) {
+        let body = res.response_body as ApiError;
+        setProgress(`Is Reachable: ${body.detail}`);
+      } else if (res.response_body !== undefined) {
+        let body = res.response_body as ApiError;
+        setProgress(`Is Reachable: ${body.detail}`);
+      }
     }
-    //Step 2 for v0.2 Only: Process the PhoneCheck/ Open check_url over cellular
-    try {
+    if (canMoveToNextStep) {
+      console.log(`Moving on with Creating PhoneCheck...`);
+      let postCheckNumberRes: AxiosResponse;
+      try {
+        setProgress(`Creating PhoneCheck`);
+        postCheckNumberRes = await client.post('/v0.2/phone-check', {
+          phone_number: phoneNumber,
+        });
+        console.log('[POST CHECK]:', postCheckNumberRes.data);
+        setProgress(`PhoneCheck created`);
+      } catch (error) {
+        setProgress(`An error occured creating PhoneCheck`);
+        setIsLoading(false);
+        showRequestError('Error creating check resource', error);
+        return;
+      }
+
       setProgress(`Requesting PhoneCheck URL`);
       console.log(`PhoneCheck [Start] ->`);
-      const checkUrlWithResponseBody =
-        await TruSdkReactNative.checkUrlWithResponseBody(
-          postCheckNumberRes.data.check_url
-        );
-
-      if ('code' in checkUrlWithResponseBody) {
-        // ResponseBodySuccess
-        setProgress('checkUrlWithResponseBody success');
-        console.log('[checkUrlWithResponseBody success]');
-        exchangeCheckRes = await client.post(
-          '/v0.2/phone-check/exchange-code',
-          {
-            check_id: checkUrlWithResponseBody.check_id,
-            code: checkUrlWithResponseBody.code,
-            reference_id: checkUrlWithResponseBody.reference_id,
-          }
-        );
-        setProgress(`Getting PhoneCheck result`);
-        console.log('Getting PhoneCheck result');
-        try {
-          console.log('[CHECK RESULT]:', exchangeCheckRes.data);
-          setProgress(`Got PhoneCheck result`);
-          setIsLoading(false);
-          if (exchangeCheckRes.data.match) {
-            setProgress(`✅ successful PhoneCheck match`);
-            console.log(`✅ successful PhoneCheck match`);
-            showMatchSuccess();
+      const resp = await TruSdkReactNative.openWithDataCellular<CheckResponse>(
+        postCheckNumberRes.data.check_url
+      );
+      console.log(`PhoneCheck [Done] ->`);
+      if ('error' in resp) {
+        setProgress(`Error in openWithDataCellular: ${resp.error_description}`);
+      } else if ('http_status' in resp) {
+        const httpStatus = resp.http_status;
+        if (httpStatus === 200 && resp.response_body !== undefined) {
+          setProgress(`Requesting PhoneCheck URL`);
+          canMoveToNextStep = true;
+          if ('error' in resp.response_body) {
+            const body = resp.response_body as CheckErrorBody;
+            setProgress(`Error: ${body.error_description}`);
           } else {
-            setProgress(`❌ failed PhoneCheck match`);
-            console.log(`❌ failed PhoneCheck match`);
-            showMatchFailure();
+            const body = resp.response_body as CheckSuccessBody;
+            // send ${body.code}, ${body.check_id} and ${body.reference_id} to back-end
+            // to trigger a PATCH /checks/{check_id}
+            try {
+              const checkStatusRes = await client.post(
+                `/v0.2/phone-check/exchange-code`,
+                {
+                  check_id: postCheckNumberRes.data.check_id,
+                  code: body.code,
+                  reference_id: body.reference_id,
+                }
+              );
+              console.log('[CHECK RESULT]:', checkStatusRes);
+              setProgress(`Got PhoneCheck result`);
+              setIsLoading(false);
+              if (checkStatusRes.data.match) {
+                setProgress(`✅ successful PhoneCheck match`);
+                showMatchSuccess();
+              } else {
+                setProgress(`❌ failed PhoneCheck match`);
+                showMatchFailure();
+              }
+            } catch (error: any) {
+              setProgress(`Error: ${error.message}`);
+              console.log(JSON.stringify(error, null, 2));
+              showRequestError('Error retrieving check result', error.message);
+              return;
+            }
           }
-          setProgress('check status');
-        } catch (error) {
-          setProgress('exchangeCheck error: ${error.message}');
-          console.log('[exchangeCheck error]');
+        } else {
+          const body = resp.response_body as ApiError;
+          setProgress(`Error: ${body.detail}`);
         }
-      } else if ('error' in checkUrlWithResponseBody) {
-        //ResponseBodyError
-        setProgress(
-          `checkUrlWithResponseBody Error: ${checkUrlWithResponseBody.error_description}`
-        );
-        console.log(
-          `checkUrlWithResponseBody: -> ${checkUrlWithResponseBody.error}`
-        );
       }
-    } catch (error: any) {
-      setProgress(`Error: ${error.message}`);
-      console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
-      showRequestError('Error retrieving check URL', error.message);
-      return;
     }
-    // TO BE USED WITHIN v0.1 endpoint
-    // As checkWithUrlResponse method does not return any body within v0.1 endpoint you will need to add
-    // type void as a return type to the checkWithUrlResponse method description at the index.tsx file.
-    //
-    // Step 2 for v0.1
-    // try {
-    //   setProgress(`Requesting PhoneCheck URL`);
-    //   console.log(`PhoneCheck [Start] ->`);
-    //   await TruSdkReactNative.checkUrlWithResponseBody(
-    //     postCheckNumberRes.data.check_url
-    //   );
-    //   console.log(`PhoneCheck [Done] ->`);
-    
-    //   setProgress(`Requesting PhoneCheck URL`);
-    // } catch (error: any) {
-    //   setProgress(`Error: ${error.message}`);
-    //   console.log(`Error Description: ${JSON.stringify(error, null, 2)}`);
-    //   showRequestError('Error retrieving check URL', error.message);
-    //   return;
-    // }
-    
-    // Step 3 for v0.1
-    //  try {
-    //   setProgress(`Getting PhoneCheck result`);
-    //   const checkStatusRes = await client({
-    //     method: 'get',
-    //     url: `/v0.1/phone-check?check_id=${postCheckNumberRes.data.check_id}`,
-    //   });
-    //   console.log('[CHECK RESULT]:', checkStatusRes);
-    //   setProgress(`Got PhoneCheck result`);
-
-    //   setIsLoading(false);
-    //   if (checkStatusRes.data.match) {
-    //     setProgress(`✅ successful PhoneCheck match`);
-    //     showMatchSuccess();
-    //   } else {
-    //     setProgress(`❌ failed PhoneCheck match`);
-    //     showMatchFailure();
-    //   }
-    // } catch (error: any) {
-    //   setProgress(`Error: ${error.message}`);
-    //   console.log(JSON.stringify(error, null, 2));
-    //   showRequestError('Error retrieving check result', error.message);
-    //   return;
-    // }
   };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
@@ -253,7 +222,6 @@ export default function App() {
     </TouchableWithoutFeedback>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
