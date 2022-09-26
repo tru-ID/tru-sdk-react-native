@@ -105,6 +105,7 @@ export default function App() {
       if (httpStatus === 200 && res.response_body !== undefined) {
         let body = res.response_body as ReachabilityBody;
         setProgress(`Is Reachable: ${body.network_name}`);
+        console.log('product => ' + JSON.stringify(body.products![0]));
         canMoveToNextStep = true;
       } else if (httpStatus === 400 && res.response_body !== undefined) {
         let body = res.response_body as ApiError;

@@ -3,6 +3,7 @@ import { NativeModules } from 'react-native';
 export type ErrorResponse = {
   error: string;
   error_description: string;
+  debug?: DebugResponse;
 };
 
 export type ApiError = {
@@ -27,6 +28,12 @@ export type ReachabilityBody = {
   network_id: string;
   network_name: string;
   country_code: string;
+  products?: ReachabilityProduct[];
+};
+
+export type ReachabilityProduct = {
+  product_id: string;
+  product_name: string;
 };
 
 export type CheckSuccessResponse = {
