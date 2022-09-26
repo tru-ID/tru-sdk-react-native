@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### 1.0.0 (2022-09-26)
+### Bug Fixes
+* ErrorResponse type amended
+* ReachabilityProduct type added
 ### 1.0.0-preview (2022-08-16)
 ### Changes
 * Breaking changes from 0.x.x, see README

@@ -25,7 +25,11 @@ When data connectivity is not available and/or an internal SDK error occurred
 ```
 {
 "error" : string,
-"error_description": string
+"error_description": string,
+"debug": {
+    "device_info": string, 
+    "url_trace" : string
+          }
 }
 ```
 Potential error codes: `sdk_no_data_connectivity`, `sdk_connection_error`, `sdk_redirect_error`, `sdk_error`.

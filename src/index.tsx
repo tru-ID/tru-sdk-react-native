@@ -3,6 +3,7 @@ import { NativeModules } from 'react-native';
 export type ErrorResponse = {
   error: string;
   error_description: string;
+  debug?: DebugResponse;
 };
 
 export type ApiError = {
