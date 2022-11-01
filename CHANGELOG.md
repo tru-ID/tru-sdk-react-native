@@ -1,7 +1,11 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-### 1.0.0 (2022-09-29)
+### 1.0.2 (2022-11-01)
+### Changes
+* Bump tru-android-sdk dependency to v1.0.2.
+* Android target increased to Android 12
+### 1.0.1 (2022-09-29)
 ### Changes
 * Bump tru-ios-sdk dependency to v1.0.1.
 * Bump tru-android-sdk dependency to v1.0.1.

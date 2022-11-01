@@ -7,7 +7,7 @@ export type ErrorResponse = {
 };
 
 export type ApiError = {
-  status: string;
+  status: number;
   type: string;
   title: string;
   detail: string;
