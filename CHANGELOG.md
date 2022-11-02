@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Changes
 * Bump tru-android-sdk dependency to v1.0.2.
 * Android target increased to Android 12
+* ApiError type amended
 ### 1.0.1 (2022-09-29)
 ### Changes
 * Bump tru-ios-sdk dependency to v1.0.1.
