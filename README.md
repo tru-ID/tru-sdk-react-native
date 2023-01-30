@@ -70,8 +70,16 @@ import TruSdkReactNative, {
 } from '@tru_id/tru-sdk-react-native';
 
 // ...
-
- const res = await TruSdkReactNative.openWithDataCellularAndAccessToken<ReachabilityResponse>("https://eu.api.tru.id/coverage/v0.1/device_ip");
+// retrieve access token with coverage scope from back-end
+const token = ...
+// open the device_ip public API endpoint
+    if (token) {
+      const res =
+        await TruSdkReactNative.openWithDataCellularAndAccessToken<ReachabilityResponse>(
+          'https://eu.api.tru.id/coverage/v0.1/device_ip',
+          true,
+          token
+        );
     if ('error' in res) {
       // error ${err.error_description}
     } else if ('http_status' in res) {
@@ -89,6 +97,7 @@ import TruSdkReactNative, {
         const body = res.response_body as ApiError;
         // other error see ${body.detail}
       }
+    }
     }
 
 ```

@@ -111,17 +111,16 @@ export default function App() {
     //As simulators do not have a mobile connection, it is best to use isReachable on a physical device
     var canMoveToNextStep = false;
     setProgress('Checking if on a Mobile IP');
-    console.log('before getCoverageAccessToken()');
+    
     const tokenResponse = await getCoverageAccessToken();
-    console.log('after');
-
-    console.log('after DEBUG');
-    if (tokenResponse.data.access_token) {
+    const token = tokenResponse.data.access_token;
+    
+    if (token) {
       const res =
         await TruSdkReactNative.openWithDataCellularAndAccessToken<ReachabilityResponse>(
           'https://eu.api.tru.id/coverage/v0.1/device_ip',
           true,
-          tokenResponse.data.access_token
+          token
         );
 
       console.log('------- openWithDataCellular -------');
