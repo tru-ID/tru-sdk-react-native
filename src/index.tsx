@@ -66,6 +66,11 @@ export type CheckResponseBody = CheckSuccessBody | CheckErrorBody | ApiError;
 type TruSdkReactNativeType = {
   openWithDataCellular<T>(url: string): Promise<T>;
   openWithDataCellularWithDebug<T>(url: string, debug: boolean): Promise<T>;
+  openWithDataCellularAndAccessToken<T>(
+    url: string,
+    debug: boolean,
+    accessToken?: string
+  ): Promise<T>;
 };
 
 const { TruSdkReactNative } = NativeModules;

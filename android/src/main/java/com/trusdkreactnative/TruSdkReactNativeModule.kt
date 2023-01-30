@@ -1,5 +1,6 @@
 package com.trusdkreactnative
 
+import android.util.Log
 import com.facebook.react.bridge.*
 import id.tru.sdk.TruSDK
 import kotlinx.coroutines.CoroutineScope
@@ -44,6 +45,22 @@ class TruSdkReactNativeModule(reactContext: ReactApplicationContext) :
       try {
         val truSdk = TruSDK.getInstance()
         val res = truSdk.openWithDataCellular(URL(url), debug)
+        promise.resolve(convertJsonToMap(res))
+      } catch (exception: Exception) {
+        val err: WritableMap = WritableNativeMap()
+        err.putString("error", "sdk_error")
+        err.putString("error_description","internal error: "+exception.message)
+        promise.resolve(err)
+      }
+    }
+  }
+
+  @ReactMethod
+  fun openWithDataCellularAndAccessToken(url: String,  debug: Boolean, accessToken: String, promise: Promise) {
+    CoroutineScope(context = Dispatchers.IO).launch {
+      try {
+        val truSdk = TruSDK.getInstance()
+        val res = truSdk.openWithDataCellularAndAccessToken(URL(url), accessToken, debug)
         promise.resolve(convertJsonToMap(res))
       } catch (exception: Exception) {
         val err: WritableMap = WritableNativeMap()
