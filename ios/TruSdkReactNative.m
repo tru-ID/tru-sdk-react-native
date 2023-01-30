@@ -10,4 +10,10 @@ RCT_EXTERN_METHOD(openWithDataCellularWithDebug:(NSString)url
 RCT_EXTERN_METHOD(openWithDataCellular:(NSString)url
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(openWithDataCellularAndAccessToken:(NSString)url
+                  debug:(BOOL)debug
+                  accessToken:(NSString)accessToken
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
 @end

@@ -1,1 +1,1 @@
-{"version":3,"names":["TruSdkReactNative","NativeModules"],"sourceRoot":"../../src","sources":["index.tsx"],"mappings":";;;;;;AAAA;AAsEA,MAAM;EAAEA;AAAkB,CAAC,GAAGC,0BAAa;AAAC,eAE7BD,iBAAiB;AAAA"}
+{"version":3,"names":["TruSdkReactNative","NativeModules"],"sourceRoot":"../../src","sources":["index.tsx"],"mappings":";;;;;;AAAA;AA2EA,MAAM;EAAEA;AAAkB,CAAC,GAAGC,0BAAa;AAAC,eAE7BD,iBAAiB;AAAA"}

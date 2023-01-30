@@ -71,7 +71,7 @@ import TruSdkReactNative, {
 
 // ...
 
- const res = await TruSdkReactNative.openWithDataCellular<ReachabilityResponse>("https://eu.api.tru.id/public/coverage/v0.1/device_ip");
+ const res = await TruSdkReactNative.openWithDataCellularAndAccessToken<ReachabilityResponse>("https://eu.api.tru.id/coverage/v0.1/device_ip");
     if ('error' in res) {
       // error ${err.error_description}
     } else if ('http_status' in res) {
