@@ -28,6 +28,7 @@ export type ReachabilityBody = {
   network_id: string;
   network_name: string;
   country_code: string;
+  mobile_data_ip: string;
   products?: ReachabilityProduct[];
 };
 
