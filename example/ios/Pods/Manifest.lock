@@ -340,7 +340,7 @@ PODS:
   - RNSha256 (1.4.9):
     - React-Core
   - tru-sdk-ios (1.0.3)
-  - tru-sdk-react-native (1.0.5):
+  - tru-sdk-react-native (1.0.6):
     - React-Core
     - tru-sdk-ios (= 1.0.3)
   - Yoga (1.14.0)
@@ -534,7 +534,7 @@ SPEC CHECKSUMS:
   ReactCommon: a30c2448e5a88bae6fcb0e3da124c14ae493dac1
   RNSha256: a6bc3640a34eb41907e363828b9ec742c274298d
   tru-sdk-ios: 8ccf84ad997e9d6b5d5df3080cc94abadd6d8a25
-  tru-sdk-react-native: 29ba9ed123f44c0c40d4d4cc4d39f8ddf40f518b
+  tru-sdk-react-native: 890df7930606e9ae8bbdc7a7eb1a54d27a606222
   Yoga: 099a946cbf84c9b32ffdc4278d72db26710ecf92
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
