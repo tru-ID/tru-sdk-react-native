@@ -7,8 +7,7 @@ import {
 } from 'react-native';
 
 // @ts-ignore
-import { BASE_URL, RTA_KEY, RTA_URL } from '@env';
-import { sha256 } from 'react-native-sha256';
+import { BASE_URL } from '@env';
 import {
   StyleSheet,
   View,
@@ -37,11 +36,6 @@ const client: AxiosInstance = axios.create({
   timeout: 30000,
 });
 
-const clientCoverage: AxiosInstance = axios.create({
-  baseURL: RTA_URL,
-  timeout: 30000,
-});
-
 const AppButton = ({
   onPress,
   title,
@@ -54,14 +48,15 @@ const AppButton = ({
   </TouchableOpacity>
 );
 
+const headers = {
+  'Content-Type': 'application/json',
+};
+
 const getCoverageAccessToken = async (): Promise<
   AxiosResponse<TokenResponse>
 > => {
-  const signature = await sha256(RTA_KEY);
-  return clientCoverage.get('/coverage_access_token', {
-    headers: {
-      'x-rta': signature,
-    },
+  return client.get('/coverage-access-token', {
+    headers: headers,
   });
 };
 
@@ -111,10 +106,8 @@ export default function App() {
     //As simulators do not have a mobile connection, it is best to use isReachable on a physical device
     var canMoveToNextStep = false;
     setProgress('Checking if on a Mobile IP');
-    
     const tokenResponse = await getCoverageAccessToken();
-    const token = tokenResponse.data.access_token;
-    
+    const token = tokenResponse.data.token;
     if (token) {
       const res =
         await TruSdkReactNative.openWithDataCellularAndAccessToken<ReachabilityResponse>(
@@ -152,9 +145,15 @@ export default function App() {
         let postCheckNumberRes: AxiosResponse;
         try {
           setProgress(`Creating PhoneCheck`);
-          postCheckNumberRes = await client.post('/v0.2/phone-check', {
-            phone_number: phoneNumber,
-          });
+          postCheckNumberRes = await client.post(
+            '/v0.2/phone-check',
+            {
+              phone_number: phoneNumber,
+            },
+            {
+              headers: headers,
+            }
+          );
           console.log('[POST CHECK]:', postCheckNumberRes.data);
           setProgress(`PhoneCheck created`);
         } catch (error) {
@@ -193,7 +192,8 @@ export default function App() {
                     check_id: postCheckNumberRes.data.check_id,
                     code: body.code,
                     reference_id: body.reference_id,
-                  }
+                  },
+                  { headers: headers }
                 );
                 console.log('[CHECK RESULT]:', checkStatusRes);
                 setProgress(`Got PhoneCheck result`);

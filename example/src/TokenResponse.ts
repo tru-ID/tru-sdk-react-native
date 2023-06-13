@@ -1,3 +1,4 @@
 export type TokenResponse = {
-  access_token: string;
+  token: string;
+  url: string;
 };
