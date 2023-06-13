@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 ### 1.0.7 (2023-06-13)
 ### Changes
-* coverage_access_token to be taken from dev_server
+* Example app coverage_access_token to be taken from dev_server
 ### 1.0.6 (2023-05-03)
 ### Changes
 * mobile_data_ip added to ReachabilityBody
