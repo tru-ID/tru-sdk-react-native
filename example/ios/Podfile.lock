@@ -337,8 +337,6 @@ PODS:
     - React-jsi (= 0.67.5)
     - React-logger (= 0.67.5)
     - React-perflogger (= 0.67.5)
-  - RNSha256 (1.4.9):
-    - React-Core
   - tru-sdk-ios (1.0.3)
   - tru-sdk-react-native (1.0.7):
     - React-Core
@@ -401,7 +399,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNSha256 (from `../node_modules/react-native-sha256`)
   - tru-sdk-react-native (from `../..`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -482,8 +479,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNSha256:
-    :path: "../node_modules/react-native-sha256"
   tru-sdk-react-native:
     :path: "../.."
   Yoga:
@@ -532,7 +527,6 @@ SPEC CHECKSUMS:
   React-RCTVibration: c3b8a3245267a3849b0c7cb91a37606bf5f3aa65
   React-runtimeexecutor: 434efc9e5b6d0f14f49867f130b39376c971c1aa
   ReactCommon: a30c2448e5a88bae6fcb0e3da124c14ae493dac1
-  RNSha256: a6bc3640a34eb41907e363828b9ec742c274298d
   tru-sdk-ios: 8ccf84ad997e9d6b5d5df3080cc94abadd6d8a25
   tru-sdk-react-native: e213b9eaf90654761411d670b317196263068ec2
   Yoga: 099a946cbf84c9b32ffdc4278d72db26710ecf92
