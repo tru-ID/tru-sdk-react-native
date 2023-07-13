@@ -1,6 +1,11 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### 1.0.8 (2023-07-13)
+### Changes
+* Bump tru-android-sdk dependency to v1.0.5.
+* Bump tru-ios-sdk dependency to v1.0.4.
+* Android target increased to Android 13
 ### 1.0.7 (2023-06-13)
 ### Changes
 * Example app coverage_access_token to be taken from dev_server
