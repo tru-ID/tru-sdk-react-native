@@ -1034,9 +1034,9 @@
     "@types/yargs-parser" "*"
 
 "@xmldom/xmldom@^0.8.8":
-  version "0.8.9"
-  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.9.tgz#b6ef7457e826be8049667ae673eda7876eb049be"
-  integrity sha512-4VSbbcMoxc4KLjb1gs96SRmi7w4h1SF+fCoiK0XaQX62buCc1G5d0DC5bJ9xJBNPDSVCmIrcl8BiYxzjrqaaJA==
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.10.tgz#a1337ca426aa61cef9fe15b5b28e340a72f6fa99"
+  integrity sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -1413,9 +1413,9 @@ camelcase@^6.0.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001503:
-  version "1.0.30001515"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001515.tgz#418aefeed9d024cd3129bfae0ccc782d4cb8f12b"
-  integrity sha512-eEFDwUOZbE24sb+Ecsx3+OvNETqjWIdabMy52oOkIgcUtAsQifjUG9q4U9dgTHJM2mfk4uEPxc0+xuFdJ629QA==
+  version "1.0.30001517"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001517.tgz#90fabae294215c3495807eb24fc809e11dc2f0a8"
+  integrity sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -1725,9 +1725,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.431:
-  version "1.4.459"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.459.tgz#25a23370f4ae8aaa8f77aaf00133aa4994f4148e"
-  integrity sha512-XXRS5NFv8nCrBL74Rm3qhJjA2VCsRFx0OjHKBMPI0otij56aun8UWiKTDABmd5/7GTR021pA4wivs+Ri6XCElg==
+  version "1.4.466"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.466.tgz#17193d70f203da3d52a89c653b8d89f47a51d79d"
+  integrity sha512-TSkRvbXRXD8BwhcGlZXDsbI2lRoP8dvqR7LQnqQNk9KxXBc4tG8O+rTuXgTyIpEdiqSGKEBSqrxdqEntnjNncA==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -4194,9 +4194,9 @@ webidl-conversions@^3.0.0:
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
 whatwg-fetch@^3.0.0:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
-  integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
+  version "3.6.16"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.16.tgz#2cf24cd621459be8137f9e3c6afb60262d78f963"
+  integrity sha512-83avoGbZ0qtjtNrU3UTT3/Xd3uZ7DyfSYLuc1fL5iYs+93P+UkIVF6/6xpRVWeQcvbc7kSnVybSAVbd6QFW5Fg==
 
 whatwg-url@^5.0.0:
   version "5.0.0"
