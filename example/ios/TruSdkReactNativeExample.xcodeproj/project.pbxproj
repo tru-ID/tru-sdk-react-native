@@ -534,7 +534,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TruSdkReactNativeExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -555,7 +555,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 3S7VD93M94;
 				INFOPLIST_FILE = TruSdkReactNativeExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
