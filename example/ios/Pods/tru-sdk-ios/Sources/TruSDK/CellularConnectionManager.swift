@@ -8,7 +8,7 @@ import os
 
 typealias ResultHandler = (ConnectionResult) -> Void
 
-let TruSdkVersion = "1.0.7" 
+let TruSdkVersion = "1.0.9" 
 
 //
 // Force connectivity to cellular only
@@ -45,8 +45,18 @@ class CellularConnectionManager: ConnectionManager {
         
         let requestId = UUID().uuidString
         
-        guard let _ = url.scheme, let _ = url.host else {
+        guard let _scheme = url.scheme, let _ = url.host else {
             completion(convertNetworkErrorToDictionary(err:NetworkError.other("No scheme or host found"), debug: debug))
+            return
+        }
+        
+        guard _scheme.lowercased() == "https" else {
+            // Return an error if the scheme is not HTTPS
+            let errorJson: [String: Any] = [
+                "error": "invalid_scheme",
+                "error_description": "Only HTTPS URLs are allowed. Please use HTTPS instead of HTTP."
+            ]
+            completion(errorJson)
             return
         }
         
@@ -468,7 +478,7 @@ class CellularConnectionManager: ConnectionManager {
         timer?.invalidate()
 
         //Read the entire response body
-        connection?.receiveMessage { data, context, isComplete, error in
+        connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536){ data, context, isComplete, error in
             
             os_log("Receive isComplete: %s", isComplete.description)
             if let err = error {
@@ -562,9 +572,18 @@ class CellularConnectionManager: ConnectionManager {
     
     // Utils
     func post(url: URL, headers: [String : Any], body: String?, completion: @escaping ([String : Any]) -> Void) {
-        
-        guard let _ = url.scheme, let _ = url.host else {
+        guard let _scheme = url.scheme, let _ = url.host else {
             completion(convertNetworkErrorToDictionary(err:NetworkError.other("No scheme or host found"), debug: false))
+            return
+        }
+        
+        guard _scheme.lowercased() == "https" else {
+            // Return an error if the scheme is not HTTPS
+            let errorJson: [String: Any] = [
+                "error": "invalid_scheme",
+                "error_description": "Only HTTPS URLs are allowed. Please use HTTPS instead of HTTP."
+            ]
+            completion(errorJson)
             return
         }
         
