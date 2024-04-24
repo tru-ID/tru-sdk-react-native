@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+### 1.0.13 (2024-04-23)
+### Changes
+* Bump tru-ios-sdk dependency to v1.0.10 (PrivacyInfo added)
 ### 1.0.12 (2024-03-13)
 ### Changes
 * Bump tru-android-sdk dependency to v1.0.8.
